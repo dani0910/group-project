@@ -2,6 +2,8 @@ import React from "react";
 import "./css/signup1.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage1 = () => {
   const [ID, setID] = useState("");
@@ -12,6 +14,7 @@ const SignUpPage1 = () => {
   const getPassW = (e) => setpassW(e.target.value);
   const getEmail = (e) => setEmail(e.target.value);
   const getNname = (e) => setNname(e.target.value);
+  const navigate = useNavigate();
   const onSignup = (e) => {
     e.preventDefault();
     const savedSignup = [
@@ -32,13 +35,19 @@ const SignUpPage1 = () => {
         "비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다."
       );
       return;
+    } else {
+      navigate("/signup2", { state: { Nname } });
     }
   };
+
   return (
     <>
       <header>
-        <button className="material-symbols-outlined">arrow_back_ios</button>
-
+        <button className="material-symbols-outlined">
+          <Link to="/">
+            <div>arrow_back_ios</div>
+          </Link>
+        </button>
         <span className="logoIcon"></span>
       </header>
       <section>

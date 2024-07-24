@@ -4,6 +4,7 @@ import IntroPage from "./components/Intro/intro";
 import SignUpPage1 from "./components/signup/signup1";
 import SignUpPage2 from "./components/signup/signup2";
 import SignUpPage3 from "./components/signup/signup3";
+import React, { useState } from "react";
 
 function App() {
   return (
