@@ -15,14 +15,14 @@ const SignUpPage1 = () => {
   const getEmail = (e) => setEmail(e.target.value);
   const getNname = (e) => setNname(e.target.value);
   const navigate = useNavigate();
-  const onSignup = (e) => {
+  const baseURL = `http://rollforward.xyz:3000/api/register/`;
+  const onSignup = async (e) => {
     e.preventDefault();
-    const savedSignup = [
-      { ID: ID },
-      { password: passW },
-      { email: email },
-      { username: Nname },
-    ];
+    const savedSignup = {
+      username: ID,
+      password: passW,
+      email: email,
+    };
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*()]).{8,}$/;
 
@@ -36,7 +36,30 @@ const SignUpPage1 = () => {
       );
       return;
     } else {
-      navigate("/signup2", { state: { Nname } });
+      try {
+        const response = await fetch(baseURL, {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(savedSignup),
+        });
+
+        if (!response.ok) {
+          if (response.status === 400) {
+            alert("이미 존재하는 ID입니다");
+          } else {
+            alert("서버에서 오류가 발생했습니다.");
+          }
+        }
+
+        const data = await response.json();
+        console.log("response received", data);
+        navigate("/signup2", { state: { Nname } });
+      } catch (error) {
+        console.error("Error occurred during signup:", error);
+        alert("Error occurred" + error.message);
+      }
     }
   };
 

@@ -3,9 +3,10 @@ import "./css/signup3.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 const SignUpPage3 = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const username = location.state?.username || "이용자";
   const [range, setRange] = useState(0);
   const getRange = (e) => setRange(e.target.value);
@@ -13,6 +14,8 @@ const SignUpPage3 = () => {
     e.preventDefault();
     const activity_level = { range };
     console.log(activity_level);
+    alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
+    navigate("/");
   };
   return (
     <>
