@@ -29,6 +29,7 @@ const FoodSearch = () => { //css 개판으로 해놔서 수정해야함
                         <p className="gram">1개 (250개)</p>
                       </div>
                       <p className="foodKcal">142kcal</p>
+                      <button className="addBtn">추가</button>
                     </li>
                   </ul>
                 </div>
