@@ -7,6 +7,7 @@ import SignUpPage3 from "./components/signup/signup3";
 import MainPage from "./components/main/main";
 import SelectFoodType from "./components/main/selectFoodType";
 import FoodSearch from "./components/main/foodSearch";
+import IngredientModal from "./components/main/ingredientModal";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/main_page" element={<MainPage />}></Route>
           <Route path="/food_type_select" element={<SelectFoodType />}></Route>
           <Route path="/food_search" element={<FoodSearch />}></Route>
+          <Route path="/food_ingredient" element={<IngredientModal/>}></Route>
         </Routes>
       </Router>
     </>
