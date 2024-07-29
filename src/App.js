@@ -8,6 +8,7 @@ import MainPage from "./components/main/main";
 import SelectFoodType from "./components/main/selectFoodType";
 import FoodSearch from "./components/main/foodSearch";
 import IngredientModal from "./components/main/ingredientModal";
+import Recommendation from "./components/main/recommendation";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/home/food_type_select" element={<SelectFoodType />}></Route>
           <Route path="/home/food_search" element={<FoodSearch />}></Route>
           <Route path="/home/food_ingredient" element={<IngredientModal />}></Route>
+          <Route path="/home/food_recommendation" element={<Recommendation />}></Route>
         </Routes>
       </Router>
     </>

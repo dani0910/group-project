@@ -15,7 +15,7 @@ const SignUpPage3 = () => {
     const activity_level = { range };
     console.log(activity_level);
     alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
-    navigate("/");
+    navigate("/home");
   };
   return (
     <>
@@ -27,7 +27,7 @@ const SignUpPage3 = () => {
         </button>
         <span className="logoIcon"></span>
       </header>
-      <section id="page3Section">
+      <section id="page3Section signupSection">
         <h4>{username}님의 하루 활동량</h4>
         <form onSubmit={onSignup3} className="form">
           <div className="lightContent contentBox">
@@ -70,11 +70,7 @@ const SignUpPage3 = () => {
             />
             <label className="veryStrongTxt">아주 강한 활동</label>
           </div>
-          <button className="checkBtn" type="submit">
-            <span className="material-symbols-outlined">check</span>
-          </button>
-        </form>
-        <div id="graphContainer">
+          <div id="graphContainer">
           <div className="level">
             <span className="circle"></span>
             <h5>25</h5>
@@ -105,6 +101,10 @@ const SignUpPage3 = () => {
             <p className="detailEX lastEX">운동선수 등</p>
           </div>
         </div>
+          <button className="checkBtn" type="submit">
+            <span className="material-symbols-outlined">check</span>
+          </button>
+        </form>
       </section>
     </>
   );

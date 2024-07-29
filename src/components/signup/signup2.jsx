@@ -44,7 +44,7 @@ const SignUpPage2 = () => {
         </button>
         <span className="logoIcon"></span>
       </header>
-      <section id="page2Section">
+      <section id="page2Section signupSection">
         <h4>{username}님의 정보를 입력해주세요</h4>
         <form action="" className="formContainer" onSubmit={onSignup2}>
           <div className="ageBox">
