@@ -2,11 +2,12 @@ import React, { useEffect, useState} from "react";
 import "./css/recommendation.css";
 import { Header, MenuBar } from './main'
 import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 
 const Recommendation = () => { 
 
-    const [diets, setDiets] = useState(['닭도리탕','김치찌개','샐러드']);
     const settings = {
         arrows: true, //양 끝 화살표
         dots: true, // 슬라이드 아래에 개수를 점 형태로
@@ -14,15 +15,15 @@ const Recommendation = () => {
         speed: 500,
         slidesToShow: 1, //한번에 표시할 슬라이드 개수
         slidesToScroll: 1, //옆으로 스크롤할 때 보여줄 슬라이드 개수
-        /* autoplay: true,
-        autoplaySpeed: 3000, */
+        autoplay: true,
+        autoplaySpeed: 2500,
     };
 
   return (
     <>
         <Header/>
-        <main className="main">
-            <button className="prevBtnFood">&lt; 식단 추천 받기</button>
+        <main className="main recMain">
+            <h4 className="prevBtnFood">&lt; 식단 추천 받기</h4>
             <section className="recommendationSection">
                 <div className="nutritionWarningBox">
                     <h4>현재 나의 영양 문제</h4>
