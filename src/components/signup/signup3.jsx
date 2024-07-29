@@ -8,14 +8,43 @@ const SignUpPage3 = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const username = location.state?.username || "이용자";
+  const savedInfo = location.state.savedSignup2;
   const [range, setRange] = useState(0);
   const getRange = (e) => setRange(e.target.value);
   const onSignup3 = (e) => {
     e.preventDefault();
-    const activity_level = { range };
-    console.log(activity_level);
-    alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
-    navigate("/");
+    if (!range) {
+      alert("한 가지 항목을 선택해 주십시오.");
+      return;
+    } else {
+      const activity_level = { range };
+      const gender = savedInfo.gender;
+      const height = savedInfo.height;
+      console.log(savedInfo);
+      console.log(gender);
+      if (gender === "female") {
+        const standard_weight = (
+          Math.pow(parseInt(height) / 100, 2) * 21
+        ).toFixed(2);
+        const requiredIntake = (standard_weight * parseInt(range)).toFixed(2);
+        console.log(`표준체중: ${standard_weight}`);
+        console.log(`권장섭취량: ${requiredIntake}`);
+        localStorage.setItem("required_intake", requiredIntake);
+      } else if (gender === "male") {
+        const standard_weight = (
+          Math.pow(parseInt(height) / 100, 2) * 22
+        ).toFixed(2);
+        const requiredIntake = (standard_weight * parseInt(range)).toFixed(2);
+        console.log(standard_weight, "kg");
+        console.log(requiredIntake, "cal");
+        localStorage.setItem("required_intake", requiredIntake);
+      } else {
+        alert("권장 섭취량을 계산할 수 없습니다");
+      }
+
+      alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
+      navigate("/");
+    }
   };
   return (
     <>

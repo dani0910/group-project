@@ -4,6 +4,10 @@ import IntroPage from "./components/Intro/intro";
 import SignUpPage1 from "./components/signup/signup1";
 import SignUpPage2 from "./components/signup/signup2";
 import SignUpPage3 from "./components/signup/signup3";
+import MainPage from "./components/main/main";
+import SelectFoodType from "./components/main/selectFoodType";
+import FoodSearch from "./components/main/foodSearch";
+import IngredientModal from "./components/main/ingredientModal";
 
 function App() {
   return (

@@ -24,7 +24,7 @@ const SignUpPage1 = () => {
       email: email,
     };
     const passwordPattern =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*()]).{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,}$/;
 
     console.log(savedSignup);
     if (!ID || !passW || !email || !Nname) {

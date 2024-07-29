@@ -1,39 +1,40 @@
-import React from "react";
 import "./css/signup2.css";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignUpPage2 = () => {
   const [age, setAge] = useState(0);
   const [gender, setGender] = useState("female");
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
+  const [savedSignup2, setSavedSignup2] = useState({});
   const getAge = (e) => setAge(e.target.value);
   const getHeight = (e) => setHeight(e.target.value);
   const getGender = (e) => setGender(e.target.value);
   const getWeight = (e) => setWeight(e.target.value);
   const location = useLocation();
   const navigate = useNavigate();
+  const savedInfo = {
+    age: age,
+    gender: gender,
+    height: height,
+    weight: weight,
+  };
+
   const username = location.state?.Nname || "이용자";
   const onSignup2 = (e) => {
     e.preventDefault();
-    const savedSignup2 = [
-      { age: age },
-      { gender: gender },
-      { height: height },
-      { weight: weight },
-    ];
+
     console.log(savedSignup2);
     if (!age || !gender || !height || !weight) {
       alert("모든 입력칸을 채워주십시오");
       return;
     } else {
-      navigate("/signup3", { state: { username } });
+      navigate("/signup3", { state: { username, savedSignup2 } });
     }
   };
-
+  useEffect(() => setSavedSignup2(savedInfo), [age, gender, height, weight]);
   return (
     <>
       <header>
