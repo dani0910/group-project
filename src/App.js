@@ -9,6 +9,12 @@ import SelectFoodType from "./components/main/selectFoodType";
 import FoodSearch from "./components/main/foodSearch";
 import IngredientModal from "./components/main/ingredientModal";
 import Recommendation from "./components/main/recommendation";
+import MainPage from "./components/main/main";
+import SelectFoodType from "./components/main/selectFoodType";
+import FoodSearch from "./components/main/foodSearch";
+import IngredientModal from "./components/main/ingredientModal";
+import Recommendation from "./components/main/recommendation";
+import Community from "./components/community/community";
 
 function App() {
   return (
@@ -33,6 +39,7 @@ function App() {
             path="/home/food_recommendation"
             element={<Recommendation />}
           ></Route>
+          <Route path="/community" element={<Community />}></Route>
         </Routes>
       </Router>
     </>

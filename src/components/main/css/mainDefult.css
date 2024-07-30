@@ -82,7 +82,7 @@
     align-items: center;
     border-radius: 10px;
 }
-.menuBar > li:nth-of-type(1) > a{
+.menuBar > li:active > a{
     background: #5cc19f7c;
 }
 .menuBar > li > a > span{
