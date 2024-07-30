@@ -1,12 +1,13 @@
 import React from "react";
 import "./intro.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 
 const IntroPage = () => {
   const [password, setPassword] = useState("");
   const [ID, setID] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const baseURL = `http://rollforward.xyz:3000/api/login/`;
   const getId = (e) => {
     setID(e.target.value);
@@ -45,6 +46,7 @@ const IntroPage = () => {
         console.log("response received", data);
         setMessage(data.message);
         localStorage.setItem("token", data.token);
+        navigate("/home");
       } catch (error) {
         console.error("Error occurred during login:", error);
         alert("Error occurred" + error.message);
