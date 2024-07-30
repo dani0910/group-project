@@ -73,7 +73,7 @@ const SignUpPage1 = () => {
         </button>
         <span className="logoIcon"></span>
       </header>
-      <section>
+      <section className="signupSection">
         <h4>회원가입 정보를 입력하세요</h4>
         <form className="inputContainer" onSubmit={onSignup}>
           <div className="idBox">

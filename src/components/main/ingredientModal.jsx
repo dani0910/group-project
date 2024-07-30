@@ -7,20 +7,63 @@ import { useLocation, useNavigate } from "react-router-dom";
 const IngredientModal = () => {
   //css 개판으로 해놔서 수정해야함
   const location = useLocation();
-  const foodinfo = JSON.parse(location.state.foodinfo);
-  const foodName = foodinfo[0];
-  const cal = foodinfo[1];
-  const protein = foodinfo[3];
-  const carb = foodinfo[2];
-  const fat = foodinfo[4];
-  const [number, setnumber] = useState(0);
+  const navigate = useNavigate();
+  let foodinfo = [];
+  try {
+    console.log(location.state?.foodinfo || []);
+    foodinfo = location.state?.foodinfo || [];
+  } catch (e) {
+    console.error("Failed to parse foodinfo:", e);
+    foodinfo = [];
+  }
+  const foodName = foodinfo.name;
+  const time = foodinfo.time;
+  const cal = parseFloat(foodinfo.calories);
+  const protein = parseFloat(foodinfo.protein);
+  const carb = parseFloat(foodinfo.carb);
+  const fat = parseFloat(foodinfo.fat);
+  const [number, setnumber] = useState(100);
+  const [meal, setMeal] = useState({});
+  const [savedMeals, setSavedMeals] = useState([]);
+  const [saveMealsFlag, setSaveMealsFlag] = useState(false);
   const plus = () => {
-    setnumber((current) => Math.min(current + 50, 1500));
+    setnumber((current) => Math.min(current + 10, 1500));
   };
   const minus = () => {
-    setnumber((current) => Math.max(current - 50, 0));
+    setnumber((current) => Math.max(current - 10, 0));
   };
-  const [gram, setGram] = useEffect(1);
+  useEffect(() => {
+    const newMeal = {
+      new_calories: ((parseFloat(cal) * number) / 100).toFixed(2),
+      new_carbs: ((parseFloat(carb) * number) / 100).toFixed(2),
+      new_protein: ((parseFloat(protein) * number) / 100).toFixed(2),
+      new_fat: ((parseFloat(fat) * number) / 100).toFixed(2),
+      time: time,
+    };
+    setMeal(newMeal);
+  }, [cal, carb, protein, fat, number]);
+
+  useEffect(() => {
+    const loadedMeals = JSON.parse(localStorage.getItem("savedMeals")) || []; // <-- 변경된 부분
+    setSavedMeals(loadedMeals);
+  }, []);
+
+  const onclick = (e) => {
+    e.preventDefault();
+    setSavedMeals((prevMeal) => {
+      const updatedMeals = [...prevMeal, meal];
+      localStorage.setItem("savedMeals", JSON.stringify(updatedMeals));
+      setSaveMealsFlag(true);
+      return updatedMeals;
+    });
+    // navigate("/home/food_search");
+  };
+
+  useEffect(() => {
+    if (saveMealsFlag) {
+      navigate("/home");
+    }
+  }, [saveMealsFlag]);
 
   return (
     <>
@@ -32,28 +75,28 @@ const IngredientModal = () => {
           <li className="kcalInfo">
             <p>칼로리</p>
             <div>
-              <p>{cal}</p>
+              <p>{meal.new_calories}</p>
               <p>kcal</p>
             </div>
           </li>
           <li className="carbInfo">
             <p>탄수화물</p>
             <div>
-              <p>{carb}</p>
+              <p>{meal.new_carbs}</p>
               <p>g</p>
             </div>
           </li>
           <li className="proteinInfo">
             <p>단백질</p>
             <div>
-              <p>{protein}</p>
+              <p>{meal.new_protein}</p>
               <p>g</p>
             </div>
           </li>
           <li className="lipidInfo">
             <p>지방</p>
             <div>
-              <p>{fat}</p>
+              <p>{meal.new_fat}</p>
               <p>g</p>
             </div>
           </li>
@@ -68,7 +111,9 @@ const IngredientModal = () => {
               +
             </button>
           </div>
-          <button className="addBtn">추가</button>
+          <button className="addBtn" onClick={onclick}>
+            추가
+          </button>
         </div>
       </section>
     </>

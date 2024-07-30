@@ -24,7 +24,9 @@ const FoodSearch = () => {
   const [food, setFood] = useState("");
   const getFood = (e) => setFood(e.target.value);
   const [foods, setfoods] = useState([]);
-  const [foodinfo, setFoodInfo] = useState("");
+  const locaion = useLocation();
+  const time = locaion.state?.time || "";
+
   const onsubmit = (e) => {
     e.preventDefault();
     query_by_food_name(food).then((data) => {
@@ -40,25 +42,18 @@ const FoodSearch = () => {
       }
     });
   };
-  useEffect(() => {
-    console.log(foodinfo);
-    console.log(typeof foodinfo);
-  }, [foodinfo]);
 
   return (
     <>
       <Header />
       <main class="main foodMain">
         <section id="foodSearchSection">
-          <h4 className="prevBtn">&lt; 아침</h4>
+          <h4 className="prevBtnFood">&lt; 아침</h4>
           <div className="searchContainer">
             <form onSubmit={onsubmit}>
               <input type="text" placeholder="음식 검색" onChange={getFood} />
-
-              <button className="searchBtn">
-                <span class="material-symbols-outlined" type="submit">
-                  search
-                </span>
+              <button className="searchBtn" type="submit">
+                <span class="material-symbols-outlined">search</span>
               </button>
             </form>
           </div>
@@ -92,8 +87,6 @@ const FoodSearch = () => {
                         alignItems: "center",
                       }}
                     >
-                      <input type="checkbox" />
-
                       <div className="foodName" style={{ flex: 1 }}>
                         <p className="foodTxt">{item.DESC_KOR}</p>
                         <p className="gram"> (100g)</p>
@@ -103,16 +96,18 @@ const FoodSearch = () => {
                         className="addBtn "
                         type="button"
                         onClick={() => {
-                          setFoodInfo(
-                            JSON.stringify([
-                              item.DESC_KOR,
-                              item.NUTR_CONT1,
-                              item.NUTR_CONT2,
-                              item.NUTR_CONT3,
-                              item.NUTR_CONT4,
-                            ])
-                          );
-                          navigate("/food_ingredient", { state: { foodinfo } });
+                          const temp_foodinfo = {
+                            name: item.DESC_KOR,
+                            time: time,
+                            calories: item.NUTR_CONT1,
+                            carb: item.NUTR_CONT2,
+                            protein: item.NUTR_CONT3,
+                            fat: item.NUTR_CONT4,
+                          };
+                          console.log(temp_foodinfo);
+                          navigate("/home/food_ingredient", {
+                            state: { foodinfo: temp_foodinfo },
+                          });
                         }}
                       >
                         추가

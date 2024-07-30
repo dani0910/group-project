@@ -37,7 +37,7 @@ header>span{
     position: relative;
 }
 
-section{
+.signupSection{
     margin: 0 auto;
     width: 60%;
     height: 60%;
@@ -46,7 +46,7 @@ section{
     gap: 60px;
 }
 
-section>h4{
+.signupSection>h4{
     width: 86%;
     margin: 0 auto;
     font-weight: bold;

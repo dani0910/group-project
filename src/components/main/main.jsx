@@ -17,6 +17,44 @@ const MainPage = () => {
     localStorage.getItem("re_fat") ||
       ((parseFloat(requiredIntake) * 0.22) / 9).toFixed(1)
   );
+  const savedMeals = JSON.parse(localStorage.getItem("savedMeals") || "[]");
+  const totalIntake = {
+    breakfast: { calories: 0, carbs: 0, protein: 0, fat: 0 },
+    lunch: { calories: 0, carbs: 0, protein: 0, fat: 0 },
+    dinner: { calories: 0, carbs: 0, protein: 0, fat: 0 },
+    snacks: { calories: 0, carbs: 0, protein: 0, fat: 0 },
+    total: { calories: 0, carbs: 0, protein: 0, fat: 0 },
+  };
+  savedMeals.forEach((meal) => {
+    const calories = parseFloat(meal.new_calories) || 0;
+    const carbs = parseFloat(meal.new_carbs) || 0;
+    const protein = parseFloat(meal.new_protein) || 0;
+    const fat = parseFloat(meal.new_fat) || 0;
+
+    const time = meal.time || "";
+
+    if (totalIntake[time]) {
+      totalIntake[time].calories += calories;
+      totalIntake[time].carbs += carbs;
+      totalIntake[time].protein += protein;
+      totalIntake[time].fat += fat;
+    }
+
+    totalIntake.total.calories += calories;
+    totalIntake.total.carbs += carbs;
+    totalIntake.total.protein += protein;
+    totalIntake.total.fat += fat;
+  });
+  const totalInfo = {
+    total_breakfast: totalIntake.breakfast.calories,
+    total_lunch: totalIntake.lunch.calories,
+    total_dinner: totalIntake.dinner.calories,
+    total_snacks: totalIntake.snacks.calories,
+    total_calories: totalIntake.total.calories,
+    total_carbs: totalIntake.total.carbs,
+    total_protein: totalIntake.total.protein,
+    total_fat: totalIntake.total.fat,
+  };
 
   useEffect(() => {
     // localStorage에 값이 없으면 저장
@@ -34,6 +72,7 @@ const MainPage = () => {
         re_carb={requiredCarbs}
         re_prot={requiredProtein}
         re_fat={requiredFat}
+        totalInfo={totalInfo}
       />
       <MenuBar />
     </>
@@ -51,7 +90,7 @@ const Header = () => {
   );
 };
 
-const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat }) => {
+const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
   return (
     <main className="main mainContainer">
       <section id="inputSection">
@@ -60,7 +99,7 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat }) => {
           <div className="inputBox">
             <p>식단 입력</p>
             <button className="inputBtnContent">
-              <Link to="/food_search">
+              <Link to="/home/food_type_select">
                 <p className="inputTxt">입력하러 가기 &gt;</p>
                 <span className="inputIcon"></span>
               </Link>
@@ -76,19 +115,19 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat }) => {
             <ul>
               <li className="morningList">
                 <p>아침</p>
-                <p>0 kcal</p>
+                <p>{totalInfo.total_breakfast}kcal</p>
               </li>
               <li className="afternoonList">
                 <p>점심</p>
-                <p>120 kcal</p>
+                <p>{totalInfo.total_lunch}kcal</p>
               </li>
               <li className="eveningList">
                 <p>저녁</p>
-                <p>80 kcal</p>
+                <p>{totalInfo.total_dinner}kcal</p>
               </li>
               <li className="etcList">
                 <p>기타</p>
-                <p>0 kcal</p>
+                <p>{totalInfo.total_snacks}kcal</p>
               </li>
             </ul>
             <p>식단 별 자세한 영양 섭취량 확인하기 &gt;</p>
@@ -97,27 +136,35 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat }) => {
       </section>
       <section id="analysisSection">
         <h3>현재 섭취량 / 하루 권장 섭취량</h3>
-        {/*유저 권장 섭취량이 표시되도록 병경*/}
+
         <ul className="detailBox">
           <li className="kcalContent">
             <span></span>
             <p className="kcalTxt">칼로리</p>
-            <p className="kcalData">0 / {re_cal} kcal</p>
+            <p className="kcalData">
+              {totalInfo.total_calories} / {re_cal} kcal
+            </p>
           </li>
           <li className="carbohydrateContent">
             <span></span>
             <p className="carbohydrateTxt">탄수화물</p>
-            <p className="carbohydrateData">0 /{re_carb} g </p>
+            <p className="carbohydrateData">
+              {totalInfo.total_carbs} /{re_carb} g{" "}
+            </p>
           </li>
           <li className="proteinContent">
             <span></span>
             <p className="proteinTxt">단백질</p>
-            <p className="proteinData">0 / {re_prot} g</p>
+            <p className="proteinData">
+              {totalInfo.total_protein} / {re_prot} g
+            </p>
           </li>
           <li className="lipidContent">
             <span></span>
             <p className="lipidTxt">지방</p>
-            <p className="lipidData">0 / {re_fat} g</p>
+            <p className="lipidData">
+              {totalInfo.total_fat} / {re_fat} g
+            </p>
           </li>
           <p>자세히 보기 &gt;</p>
         </ul>
