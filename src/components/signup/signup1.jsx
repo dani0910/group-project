@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./css/signup1.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUpPage1 = () => {
   const [ID, setID] = useState("");
@@ -103,7 +100,7 @@ const SignUpPage1 = () => {
             />
           </div>
 
-          <button className="checkBtn">
+          <button type="submit" className="checkBtn">
             <span className="material-symbols-outlined">check</span>
           </button>
         </form>
