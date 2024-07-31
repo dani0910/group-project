@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const IngredientModal = () => {
-  //css 개판으로 해놔서 수정해야함
   const location = useLocation();
   const navigate = useNavigate();
   let foodinfo = [];

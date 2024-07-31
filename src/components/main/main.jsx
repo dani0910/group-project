@@ -90,6 +90,13 @@ const Header = () => {
 };
 
 const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
+  const foodType = [
+    {text: '아침', value: 'breakfast'},
+    {text: '점심', value: 'lunch'},
+    {text: '저녁', value: 'dinner'},
+    {text: '기타', value: 'snacks'},
+  ]
+
   return (
     <main className="main mainContainer">
       <section id="inputSection">
@@ -110,22 +117,14 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
               </button>
             </div>
             <ul>
-              <li className="morningList">
-                <p>아침</p>
-                <p>{totalInfo.total_breakfast}kcal</p>
-              </li>
-              <li className="afternoonList">
-                <p>점심</p>
-                <p>{totalInfo.total_lunch}kcal</p>
-              </li>
-              <li className="eveningList">
-                <p>저녁</p>
-                <p>{totalInfo.total_dinner}kcal</p>
-              </li>
-              <li className="etcList">
-                <p>기타</p>
-                <p>{totalInfo.total_snacks}kcal</p>
-              </li>
+              {foodType.map((type,i)=>{
+                return(
+                  <li className={`${type.value}List`} key={i}>
+                    <p>{type.text}</p>
+                    <p>{totalInfo[`total_${type.value}`]}kcal</p>
+                  </li>
+                )
+              })}
             </ul>
             <p>식단 별 자세한 영양 섭취량 확인하기 &gt;</p>
           </div>
