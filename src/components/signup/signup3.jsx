@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 const SignUpPage3 = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ const SignUpPage3 = () => {
       alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
       navigate("/");
     }
+    
     return (
       <>
         <header>
@@ -56,7 +58,7 @@ const SignUpPage3 = () => {
           </button>
           <span className="logoIcon"></span>
         </header>
-        <section id="page3Section signupSection">
+        <section className="page3Section signupSection">
           <h4>{username}님의 하루 활동량</h4>
           <form onSubmit={onSignup3} className="form">
             <div className="lightContent contentBox">

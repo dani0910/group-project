@@ -82,18 +82,18 @@ const IntroPage = () => {
           />
         </div>
 
-        <button className="signupBtn" type="submit">
+        <button className="loginBtn" type="submit">
           <div>
-            <span className="signupIcon"></span>
-            <span className="signupTxt">로그인</span>
+            <span className="loginIcon"></span>
+            <span className="loginTxt">로그인</span>
           </div>
         </button>
 
-        <div className="guestLogin">
+        <button className="signupBtn">
           <Link to="/signup1">
-            <a href="#">화원가입</a>
+            화원가입
           </Link>
-        </div>
+        </button>
       </form>
     </section>
   );

@@ -25,7 +25,7 @@ body {
 
 .logoBox {
   width: 100%;
-  height: 56%;
+  height: 55%;
   display: flex;
   justify-content: center;
 }
@@ -84,17 +84,16 @@ body {
   border-radius: 10px;
 }
 
-.signupBtn {
-  margin: 15px 0;
+.loginBtn {
+  margin: 8px 0 15px;
   width: 80%;
   height: 50px;
   background: #000000;
   border-radius: 13px;
   box-shadow: 8px 6px 10px rgba(0, 0, 0, 0.2);
-
   position: relative;
 }
-.signupIcon {
+.loginIcon {
   background: url(./icon/sign_up_icon.png);
   width: 27px;
   height: 27px;
@@ -103,17 +102,15 @@ body {
   top: 10px;
 }
 
-.signupTxt {
+.loginTxt {
   color: #fff;
   font-size: 15px;
 }
-.guestLogin {
-  width: 82%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
+.signupBtn {
+  background: none;
+  border: none;
 }
-.guestLogin > a {
+.signupBtn > a {
   color: #393939;
   font-size: 14px;
 }

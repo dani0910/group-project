@@ -1,6 +1,111 @@
 /* @import url('./foodSearch.css'); */
 
 #ingredientModalSection{
-    width: 100vw;
-    height: 100vh;
+    width: 80vw;
+    height: 60%;
+    border: 1px solid #e7e7e7;
+    border-radius: 10px;
+    box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
+    margin: 0 auto;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.ingredientTxt{
+    font-size: 12px;
+}
+
+#ingredientModalSection > .foodTitle{
+    width: 100%;
+    height: 13%;
+    /* border: 1px solid #333; */
+    position: relative;
+    padding: 8px 0;
+}
+
+#ingredientModalSection > .foodTitle > h4{
+}
+#ingredientModalSection > .foodTitle > h4::before{
+    display:inline-block;
+    content: '';
+    width: 6px;
+    height: 17px;
+    background: #5cc19f86;
+    border-radius: 2px;
+    margin-right: 8px;
+}
+#ingredientModalSection > .foodTitle > p{
+    padding: 6px 0 0 6px;
+    color: #666;
+}
+#ingredientModalSection > .foodTitle > button{
+    position: absolute;
+    top: 30%;
+    right: 5%;
+    background: none;
+    border: none;
+}
+
+
+#ingredientModalSection > .ingredientInfo{
+    width: 95%;
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+}
+.ingredientInfo > li{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e2e2e2;
+}
+.ingredientInfo > .fatList{
+    border: none;
+}
+.ingredientInfo > li > *{
+    padding-left: 4px;
+}
+.ingredientInfo > li > div{
+    padding-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+
+#ingredientModalSection > .addContainer{
+    width: 95%;
+    height: 10%;
+    margin: 0 auto;
+    /* border: 1px solid #333; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.addContainer > .quantityControl{
+    width: 65%;
+    height: 35px;
+    border: 3px solid #5cc19f86;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.addContainer > .quantityControl > button{
+    width: 30%;
+    height: 35px;
+    font-size: 18px;
+    border:none;
+    line-height: 30px;
+    background: none;
+}
+.addContainer > .addBtn{
+    width: 30%;
+    height: 35px;
+    border-radius: 8px;
+    background: #5cc19f86;
+    border: none;
 }

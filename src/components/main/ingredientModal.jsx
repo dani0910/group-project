@@ -65,41 +65,33 @@ const IngredientModal = () => {
     }
   }, [saveMealsFlag]);
 
+  const ingredient = [
+    {text: '칼로리' , value: 'calories', unit: 'kacl'},
+    {text: '탄수화물' , value: 'carbs', unit: 'g'},
+    {text: '단백질' , value: 'protein', unit: 'g'},
+    {text: '지방' , value: 'fat', unit: 'g'}
+  ]
+
   return (
     <>
       <section id="ingredientModalSection">
         <div className="foodTitle">
           <h4>{foodName}</h4>
+          <p className="ingredientTxt">1개 {number}g 기준</p>
+          <button><span class="material-symbols-outlined">favorite</span></button>
         </div>
         <ul className="ingredientInfo">
-          <li className="kcalInfo">
-            <p>칼로리</p>
-            <div>
-              <p>{meal.new_calories}</p>
-              <p>kcal</p>
-            </div>
-          </li>
-          <li className="carbInfo">
-            <p>탄수화물</p>
-            <div>
-              <p>{meal.new_carbs}</p>
-              <p>g</p>
-            </div>
-          </li>
-          <li className="proteinInfo">
-            <p>단백질</p>
-            <div>
-              <p>{meal.new_protein}</p>
-              <p>g</p>
-            </div>
-          </li>
-          <li className="lipidInfo">
-            <p>지방</p>
-            <div>
-              <p>{meal.new_fat}</p>
-              <p>g</p>
-            </div>
-          </li>
+          {ingredient.map((ingredient,i)=>{
+            return(
+              <li className={`${ingredient.value}List`} key={i}>
+                <p className="ingredientTxt">{ingredient.text}</p>
+                <div>
+                  <p>{meal[`new_${ingredient.value}`]}</p>
+                  <p className="ingredientTxt">{ingredient.unit}</p>
+                </div>
+              </li>
+            )
+          })}
         </ul>
         <div className="addContainer">
           <div className="quantityControl">

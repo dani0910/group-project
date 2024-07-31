@@ -17,7 +17,7 @@
 }
 
 .mainContainer > section >h3{
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
 }
 
@@ -41,7 +41,7 @@
 .innerBox > .inputBox{
     width: 100%;
     background: #fff;
-    height: 60%;
+    height: 52%;
 }
 
 .inputBox > p {
@@ -60,6 +60,7 @@
     align-items: center;
     background: none;
     border: none;
+    text-decoration: none;
 }
 .inputBox > .inputBtnContent > .inputTxt{
     width: 50%;
@@ -67,15 +68,15 @@
     font-weight: 400;
 }
 .inputBox > .inputBtnContent > .inputIcon{
-    background:#777;
     width: 50%;
     height: 147px;
+    background: url("../img/input_img.png") no-repeat center;
 }
 
 
 .innerBox > .caloriesBox{
     width: 100%;
-    height: 45%;
+    height: 47%;
     /* background: #888; */
     display: flex;
     flex-direction: column;
@@ -188,14 +189,21 @@
 
 #recommendationSection{
     height: 8%;
+}
+#recommendationSection > a{
+    width: 88%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-decoration: none;
 }
-#recommendationSection > h3{
+#recommendationSection > a > h3{
     width: 235px;
+    font-size: 14px;
+    font-weight: 500;
 }
-#recommendationSection > span{
+#recommendationSection > a > span{
     font-size: 15px;
     font-weight: 400;
     color: #5a5a5a;

@@ -1,9 +1,8 @@
 import React from "react";
 import "./css/mainPage.css";
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link, NavLink } from "react-router-dom";
 const MainPage = () => {
-  //css 개판으로 해놔서 수정해야함
   const requiredIntake = localStorage.getItem("required_intake");
   const [requiredCarbs, setRequiredCarbs] = useState(
     localStorage.getItem("re_carbs") ||
@@ -98,12 +97,10 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
         <div className="innerBox">
           <div className="inputBox">
             <p>식단 입력</p>
-            <button className="inputBtnContent">
-              <Link to="/home/food_type_select">
-                <p className="inputTxt">입력하러 가기 &gt;</p>
-                <span className="inputIcon"></span>
-              </Link>
-            </button>
+            <Link to="/home/food_type_select" className="inputBtnContent">
+              <p className="inputTxt">입력하러 가기 &gt;</p>
+              <span className="inputIcon"></span>
+            </Link>
           </div>
           <div className="caloriesBox">
             <div>
@@ -170,45 +167,45 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
         </ul>
       </section>
       <section id="recommendationSection">
-        <h3>나에게 맞는 식단 추천 받으러 가기</h3>
-        <span class="material-symbols-outlined">arrow_forward_ios</span>
+        <Link to='/home/food_recommendation'>
+          <h3>나에게 맞는 식단 추천 받으러 가기</h3>
+          <span class="material-symbols-outlined">arrow_forward_ios</span>
+        </Link>
       </section>
     </main>
   );
 };
 
 const MenuBar = () => {
-  return (
+  const [menuItem, setMenuItem] = useState([
+    {text: '홈', className: 'home'},
+    {text: '캘린더', className: 'calender'},
+    {text: '커뮤니티', className: 'community'},
+    {text: '마이 페이지', className: 'myPage'}
+  ])
+
+  return ( 
     <div id="menuBox">
-      <ul className="menuBar">
-        <li className="homeList">
-          <a href="#" className="homeLink">
-            <span className="homeIcon"></span>
-          </a>
-          <p className="homeTxt">홈</p>
-        </li>
-        <li>
-          <a href="#" className="calenderLink">
-            <span className="calenderIcon"></span>
-          </a>
-          <p className="calenderTxt">캘린더</p>
-        </li>
-        <li>
-          <a href="#" className="communityLink">
-            <span className="communityIcon"></span>
-          </a>
-          <p className="communityTxt">커뮤니티</p>
-        </li>
-        <li>
-          <a href="#" className="myPageLink">
-            <span className="myIcon"></span>
-          </a>
-          <p className="myPageTxt">마이 페이지</p>
-        </li>
-      </ul>
+      <div className="menuBar">
+        {menuItem.map((item,i)=>{
+          return(
+            <NavLink 
+              key={i}
+              to={`/${item.className}`} 
+              className={`${item.className}Link menuLink`}
+              activeClassName="activeNav"
+            > 
+              <span className={`${item.className}Icon`}></span>
+              <p className={`${item.className}Txt`}>{item.text}</p>
+          </NavLink>
+          /* 해당 링크 활성화 됐을 때 background 색 변경 안먹음 */
+          )
+        })}
+      </div>
     </div>
   );
 };
+
 
 export default MainPage;
 export { Header, MainPageContent, MenuBar };

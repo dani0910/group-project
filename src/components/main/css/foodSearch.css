@@ -51,7 +51,7 @@
 .resultContainer > .tabs{
     width: 100%;
     border-bottom: 1px solid #ccc;
-    height: 9%;
+    height: 10%;
     background: #ededed47;
     display: flex;
     justify-content: center;
@@ -68,13 +68,8 @@
 .resultContainer > .tabs > .allBtn, .resultContainer > .tabs >.bookmarkBtn{
     border-right: 1px solid #ccc;
 }
-
-.resultContainer > .tabs > button > span{
-    padding: 3px;
-}
-
-.resultContainer > .tabs > button:focus span{
-    border-bottom: 2px solid #5cc1a0 !important;
+.resultContainer > .tabs .active{
+    border-bottom: 2px solid #5cc1a0; /* 수정 필요 */
 }
 
 
@@ -85,6 +80,8 @@
 }
 .foodResultBox > li{
     display: flex;
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
 }
 
 .foodName{

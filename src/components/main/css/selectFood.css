@@ -6,3 +6,69 @@
     position: absolute !important;
     background: #000 !important;
 } */
+
+#selectModal{
+    width: 80%;
+    height: 50%;
+    border: 1px solid #e7e7e7;
+    border-radius: 10px;
+    box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
+    margin: 0 auto;
+    padding: 18px;
+}
+
+#selectModal > h3{
+    width: 98%;
+    height: 15%;
+    margin: 0 auto;
+   /*  background: #333; */
+    display: flex;
+    align-items: center;
+}
+
+#selectModal > h3::before{
+    content: '';
+    width: 8px;
+    height: 24px;
+    background: #5cc1a0;
+    opacity: 0.5;
+    border-radius: 2px;
+    margin-right: 10px;
+}
+
+#selectModal > form{
+    width: 95%;
+    height: 85%;
+    margin: 0 auto;
+    /* border: 1px solid #333; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 9%;
+}
+#selectModal > form > .inputBox{
+    /* border: 1px solid #333; */
+    height: 10%;
+}
+#selectModal > form > .inputBox > input{
+    margin-right: 14px;
+}
+
+#selectModal > form > .btnBox{
+/*     background: #333; */
+    width: 100%;
+    height: 12%;
+    margin-top: 1%;
+  /*   border-top: 1px solid #ededed; */
+}
+#selectModal > form > .btnBox > button{
+    width: 50%;
+    height: 100%;
+    background: none;
+    border: none;
+    font-weight: 600;
+}
+
+#selectModal > form > .btnBox > .selectBtn{
+    border-right: 2px solid #e7e7e7;
+}

@@ -1,11 +1,11 @@
 @import url('./signupDefult.css');
 
-#page3Section{
+.page3Section{
     width: 86%;
     height: 65%;
     gap: 10px;
 }
-#page3Section>h4{
+.page3Section>h4{
     height: 100px;
 }
 .form{

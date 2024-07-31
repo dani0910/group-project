@@ -19,7 +19,13 @@ const SelectFoodType = () => {
 };
 
 const TypeOfMealsModal = () => {
-  //inputBtnContent 버튼 누르면 모달 창 띄워주고 뒷 배경 #000 opacity: 0.2주세여
+  const type = [
+    {text: '아침', className: 'breakfast'},
+    {text: '점심', className: 'lunch'},
+    {text: '저녁', className: 'dinner'},
+    {text: '간식', className: 'snack'},
+  ]
+
   const [time, setTime] = useState("");
   const navigate = useNavigate();
   const getTime = (e) => setTime(e.target.value);
@@ -28,68 +34,31 @@ const TypeOfMealsModal = () => {
     console.log(time);
     navigate("/home/food_search", { state: { time } });
   };
+
   return (
     <section id="selectModal">
-      <div className="ModalContainer">
-        <h2 className="modalTitle">식사 종류</h2>
-        <form action="" onSubmit={onsubmit}>
-          <div className="morningType">
-            <input
-              type="radio"
-              className=""
-              name="option"
-              id="breakfast"
-              value="breakfast"
-              onChange={getTime}
-            />
-            <label className="morningTxt" htmlFor="breakfast">
-              아침
-            </label>
-          </div>
-          <div className="lunchType">
-            <input
-              type="radio"
-              className=""
-              name="option"
-              id="lunch"
-              value="lunch"
-              onChange={getTime}
-            />
-            <label className="lunchTxt" htmlFor="lunch">
-              점심
-            </label>
-          </div>
-          <div className="dinnerType">
-            <input
-              type="radio"
-              className=""
-              name="option"
-              id="dinner"
-              value="dinner"
-              onChange={getTime}
-            />
-            <label className="dinnerTxt" htmlFor="dinner">
-              저녁
-            </label>
-          </div>
-          <div className="snackType">
-            <input
-              type="radio"
-              className=""
-              name="option"
-              id="snacks"
-              value="snacks"
-              onChange={getTime}
-            />
-            <label className="snackTxt" htmlFor="snacks">
-              간식
-            </label>
-          </div>
-          <button type="submit">선택</button>
-        </form>
-        <h2 className="cancelBtn">취소</h2>
-        <div id="bg"></div>
-      </div>
+      <h3 className="modalTitle">식사 종류</h3>
+      <form action="" onSubmit={onsubmit}>
+        {type.map((type,i)=>{
+          return(
+            <div className={`${type.test}Type inputBox`} key={i}>
+              <input
+                type="radio"
+                name="option"
+                id={type.className}
+                value={type.className}
+                onChange={getTime}
+              />
+              <label className={`${type.className}Txt`} htmlFor={type.className}>{type.text}</label>
+            </div>
+          )
+        })}
+        <div className="btnBox">
+          <button type="submit" className="selectBtn">선택</button>
+          <button type="button" className="cancelBtn">취소</button>
+        </div>
+      </form>
+      <div id="bg" style={{ display: 'none' }}></div>
     </section>
   );
 };

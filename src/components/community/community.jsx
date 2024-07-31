@@ -8,7 +8,7 @@ const Community = () => {
     return(
         <>
             <Header />
-            <main className="communityMain">
+            <main className="communityMain main">
                 <section id="sectionBBS">
                     <div className="tabsBBS">
                         <button className="recipeBtn" onClick={()=> setActiveTab('recipe')}>레시피 게시판</button>
