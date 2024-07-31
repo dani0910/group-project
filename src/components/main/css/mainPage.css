@@ -20,6 +20,19 @@
     font-size: 14px;
     font-weight: 500;
 }
+.h3Txt{
+    display: flex;
+}
+.h3Txt::before{
+    display:inline-block;
+    content: '';
+    width: 5px;
+    height: 17px;
+    background: #5cc19f86;
+    border-radius: 2px;
+    margin-right: 7px;
+    vertical-align: middle;
+}
 
 #inputSection{
     height: 57%;
@@ -89,18 +102,22 @@
     padding-bottom : 2px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .caloriesBox > div > p{
     font-size: 12px;
     color: #383838;
 }
-.caloriesBox > div > .editBtn{
+.caloriesBox > div > .refreshBtn{
     border: none;
-    width: 12px;
+    width: 24px;
     height: 100%;
+    background: none;
+    margin-right: 8px;
 }
-.caloriesBox > div > .editBtn >span{
-    width: 100%;
+.caloriesBox > div > .refreshBtn > span{
+    color: #4c4c4c;
+    width: 80%;
     height: 100%;
 }
 
@@ -152,46 +169,70 @@
 #analysisSection > h3{
     width: 90%;
     height: 20%;
-    padding-bottom: 3px;
+    font-size: 13px;
+    line-height: 13px;
+    padding-bottom: 5px;
     border-bottom: 2px solid #5cc1a0;
 }
 #analysisSection > ul{
     margin: 0 auto;
     width: 88%;
     height: 79%;
-    /* background: #333; */
+    padding: 5px;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 #analysisSection > ul > li{
     width: 50%;
-    height: 43%;
+    height: 48%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
-.kcalContent, .carbohydrateContent{
+.caloriesContent, .carbsContent{
     border-bottom: 1px solid #d0d0d0;
 }
-.kcalContent , .proteinContent{
+.caloriesContent , .proteinContent{
     border-right: 1px solid #d0d0d0;
 }
 #analysisSection > ul > li > p{
-    font-size: 12px;
+    font-size: 11px;
+}
+#analysisSection > ul > li > p:nth-of-type(2){
+    margin-left: 10px;
+}
+.itemTxt::before{
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: #00d991;
+    margin: 0 10px; 
+}
+.carbsTxt::before{
+    background: #5cb5c1;
+}
+.proteinTxt::before{
+    background: #5cc1a0;
+}
+.fatTxt::before{
+    background: #abdecd;
 }
 
-#analysisSection > ul > p {
+/* #analysisSection > ul > p {
     font-size: 10px;
     color: #6666;
 }
-
+ */
 
 
 #recommendationSection{
     height: 8%;
 }
 #recommendationSection > a{
-    width: 88%;
+    width: 92%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;

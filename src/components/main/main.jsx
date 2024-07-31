@@ -63,6 +63,7 @@ const MainPage = () => {
       localStorage.setItem("re_fat", requiredFat);
     }
   }, [requiredCarbs, requiredProtein, requiredFat]);
+  
   return (
     <>
       <Header />
@@ -96,11 +97,19 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
     {text: '저녁', value: 'dinner'},
     {text: '기타', value: 'snacks'},
   ]
+  const nutrition = [
+    {text: '칼로리', value: 'calories', unit: 'kal', recommended: "re_cal"},
+    {text: '탄수화물', value: 'carbs', unit: 'g', recommended: "re_carb"},
+    {text: '단백질', value: 'protein', unit: 'g', recommended: "re_prot"},
+    {text: '지방', value: 'fat', unit: 'g', recommended: "re_fat"}
+  ]
+  const recommendedValues = {re_cal,re_carb,re_prot,re_fat};
+  console.log(recommendedValues[nutrition[0].recommended])
 
   return (
     <main className="main mainContainer">
       <section id="inputSection">
-        <h3>식단 입력</h3>
+        <h3 className="h3Txt">식단 입력</h3>
         <div className="innerBox">
           <div className="inputBox">
             <p>식단 입력</p>
@@ -112,8 +121,8 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
           <div className="caloriesBox">
             <div>
               <p>식사 별 칼로리</p>
-              <button className="editBtn">
-                <span class="material-symbols-outlined">edit</span>
+              <button className="refreshBtn">
+                <span class="material-symbols-outlined">refresh</span>
               </button>
             </div>
             <ul>
@@ -121,7 +130,7 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
                 return(
                   <li className={`${type.value}List`} key={i}>
                     <p>{type.text}</p>
-                    <p>{totalInfo[`total_${type.value}`]}kcal</p>
+                    <p>{totalInfo[`total_${type.value}`]} kcal</p>
                   </li>
                 )
               })}
@@ -131,43 +140,22 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
         </div>
       </section>
       <section id="analysisSection">
-        <h3>현재 섭취량 / 하루 권장 섭취량</h3>
-
+        <h3 className="h3Txt">현재 섭취량 / 하루 권장 섭취량</h3>
         <ul className="detailBox">
-          <li className="kcalContent">
-            <span></span>
-            <p className="kcalTxt">칼로리</p>
-            <p className="kcalData">
-              {totalInfo.total_calories} / {re_cal} kcal
-            </p>
-          </li>
-          <li className="carbohydrateContent">
-            <span></span>
-            <p className="carbohydrateTxt">탄수화물</p>
-            <p className="carbohydrateData">
-              {totalInfo.total_carbs} /{re_carb} g{" "}
-            </p>
-          </li>
-          <li className="proteinContent">
-            <span></span>
-            <p className="proteinTxt">단백질</p>
-            <p className="proteinData">
-              {totalInfo.total_protein} / {re_prot} g
-            </p>
-          </li>
-          <li className="lipidContent">
-            <span></span>
-            <p className="lipidTxt">지방</p>
-            <p className="lipidData">
-              {totalInfo.total_fat} / {re_fat} g
-            </p>
-          </li>
-          <p>자세히 보기 &gt;</p>
+          {nutrition.map((item,i)=>{
+            return(
+              <li className={`${item.value}Content`}>
+                <p className={`${item.value}Txt itemTxt`}>{item.text}</p>
+                <p className={`${item.value}Data`}>{totalInfo[`total_${item.value}`]} / {recommendedValues[item.recommended]} {item.unit}</p>
+              </li>
+            )
+          })}
+          {/* <p>자세히 보기 &gt;</p> */}
         </ul>
       </section>
       <section id="recommendationSection">
         <Link to='/home/food_recommendation'>
-          <h3>나에게 맞는 식단 추천 받으러 가기</h3>
+          <h3 className="h3Txt">나에게 맞는 식단 추천 받으러 가기</h3>
           <span class="material-symbols-outlined">arrow_forward_ios</span>
         </Link>
       </section>

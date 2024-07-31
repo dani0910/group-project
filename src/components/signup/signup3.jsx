@@ -8,7 +8,7 @@ const SignUpPage3 = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const username = location.state?.username || "이용자";
-  const savedInfo = location.state.savedSignup2;
+  const savedInfo = location.state?.savedSignup2;
   const [range, setRange] = useState(0);
 
   const getRange = (e) => setRange(e.target.value);
@@ -36,6 +36,13 @@ const SignUpPage3 = () => {
     }
   };
 
+  const activity = [
+    {text: '가벼운', type: 'light', value: 25},
+    {text: '중등도', type: 'moderate', value: 30},
+    {text: '강한', type: 'strong', value: 35},
+    {text: '아주 강한', type: 'veryStrong', value: 40}
+  ]
+
   return (
     <>
       <header>
@@ -49,46 +56,21 @@ const SignUpPage3 = () => {
       <section className="page3Section signupSection">
         <h4>{username}님의 하루 활동량</h4>
         <form onSubmit={onSignup3} className="form">
-          <div className="lightContent contentBox">
-            <input
-              type="radio"
-              name="activity"
-              id="light"
-              value={25}
-              onChange={getRange}
-            />
-            <label className="lightTxt">가벼운 활동</label>
+          {activity.map((item,i)=>{
+            return(
+              <div className={`${item.type}Content contentBox`} key={i}>
+                <input
+                  type="radio"
+                  name="activity"
+                  id={item.type}
+                  value={item.value}
+                  onChange={getRange}
+                />
+            <label className={`${item.type}Txt`}>{item.text} 활동</label>
           </div>
-          <div className="contentBox">
-            <input
-              type="radio"
-              name="activity"
-              id="moderate"
-              value={30}
-              onChange={getRange}
-            />
-            <label className="moderateTxt">중등도 활동</label>
-          </div>
-          <div className="contentBox">
-            <input
-              type="radio"
-              name="activity"
-              id="strong"
-              value={35}
-              onChange={getRange}
-            />
-            <label className="strongTxt">강한 활동</label>
-          </div>
-          <div className="contentBox">
-            <input
-              type="radio"
-              name="activity"
-              id="veryStrong"
-              value={40}
-              onChange={getRange}
-            />
-            <label className="veryStrongTxt">아주 강한 활동</label>
-          </div>
+            )
+          })}
+          
           <div id="graphContainer">
             <div className="level">
               <span className="circle"></span>
