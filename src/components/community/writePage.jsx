@@ -15,9 +15,9 @@ const WritePage = () => {
         const newPost  = {
             title, 
             content, 
-            author:'작성자',
-             date: new Date().toLocaleDateString('ko-KR'), 
-             img:''
+            author: '작성자',
+            date: new Date().toLocaleDateString('ko-KR'), 
+            img: ' '
         }
 
         setRecipePost((prevPosts) => {
@@ -36,7 +36,7 @@ const WritePage = () => {
                 <form onSubmit={handleSubmit}className="writeSection commuSection">
                     <div className="writeHeader commuHeader">
                         <Link to='/community'>&lt;</Link>
-                        <select name="typeBBS" id="typeBBS">
+                        <select name="selectBBS" id="selectBBS">
                             <option value="recipeBBS">게시판 - 레시피</option>
                             <option value="freeBBS">게시판 - 자유</option>
                         </select>

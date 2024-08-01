@@ -16,16 +16,6 @@ const Community = () => {
                         <button className={`recipeBtn ${currentTab === 'recipe' ? 'active' : ''}`} onClick={()=> setCurrentTab('recipe')}>레시피 게시판</button>
                         <button className={`freeBtn ${currentTab === 'free' ? 'active' : ''}`} onClick={()=> setCurrentTab('free')}>자유 게시판</button>
                     </div>
-                    {/* {currentTab == 'recipe' &&(
-                        <>
-                            <SearchBar></SearchBar>
-                            <PostList></PostList>
-                            <Pagination></Pagination>
-                        </>
-                    )}
-                    {currentTab == 'free' &&(
-                        <></>
-                    )} */}
                     <div className="contentBBS">
                         {currentTab == "recipe" ? <RecipePostBBS /> : <FreePostBBS />}
                     </div>
@@ -36,43 +26,105 @@ const Community = () => {
     );
 }
 
+// const RecipePostBBS = () => {
+//     const [recipePost, setRecipePost] = useState([]);
+//     useEffect(()=>{
+//         const allRecipePost = [
+//             {title: '레시피1', content: '내용물1', author: '작성자', date: '7/27', img:''},
+//             {title: '레시피2', content: '내용물2', author: '작성자', date: '7/27', img:''},
+//         ];
+//         setRecipePost(allRecipePost);
+//     }, []);
+    
+
+//     return(
+//         <>
+//             <form className="recipeForm commuForm">
+//                 <input type="text" className="searchInput" placeholder="레시피 검색"/>
+//                 <button className="searchBtn"><span class="material-symbols-outlined">search</span></button>
+//             </form>
+//             <ul className="recipeBox commuBox">
+//                 {recipePost.map((post,i)=>{
+//                     return(
+//                         <li key={i} className="recipeList commuList">
+//                             <div className="txtBox">
+//                                 <h4 className="recipeTitle commuTitle">{post.title}</h4>
+//                                 <p className="recipeContent commuContent">{post.content}</p>
+//                                 <div className="recipeEtc commuEtc">
+//                                     <p className="recipeAuthor commuAuthor">{post.author}</p>
+//                                     <p className="recipeDate commuDate">{post.date}</p>
+//                                 </div>
+//                             </div>
+//                             <img src={post.img || "https://via.placeholder.com/50"} alt="" />
+//                         </li>
+//                     )
+//                 })}
+//             </ul>
+//             <Link to="/community/write"><button className="writingBtn"><span class="material-symbols-outlined">edit</span></button></Link>
+//         </>
+//     );
+// }
 const RecipePostBBS = () => {
     const [recipePost, setRecipePost] = useState([]);
-    useEffect(()=>{
+    const [searchQuery, setSearchQuery] = useState('');
+
+    useEffect(() => {
         const allRecipePost = [
             {title: '레시피1', content: '내용물1', author: '작성자', date: '7/27', img:''},
             {title: '레시피2', content: '내용물2', author: '작성자', date: '7/27', img:''},
+            {title: '닭도리탕', content: '마싯겠다', author: '작성자', date: '7/27', img:''},
         ];
         setRecipePost(allRecipePost);
     }, []);
 
-    return(
+    // 검색어를 기준으로 레시피를 필터링
+    const filteredRecipePost = recipePost.filter(post => 
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.content.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    // 검색어 입력 처리
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    return (
         <>
             <form className="recipeForm commuForm">
-                <input type="text" className="searchInput" placeholder="레시피 검색"/>
-                <button className="searchBtn"><span class="material-symbols-outlined">search</span></button>
+                <input 
+                    type="text" 
+                    className="searchInput" 
+                    placeholder="레시피 검색" 
+                    value={searchQuery}
+                    onChange={handleSearchChange} // 검색어 입력 처리
+                />
+                <button type="submit" className="searchBtn">
+                    <span className="material-symbols-outlined">search</span>
+                </button>
             </form>
             <ul className="recipeBox commuBox">
-                {recipePost.map((post,i)=>{
-                    return(
-                        <li key={i} className="recipeList commuList">
-                            <div className="txtBox">
-                                <h4 className="recipeTitle commuTitle">{post.title}</h4>
-                                <p className="recipeContent commuContent">{post.content}</p>
-                                <div className="recipeEtc commuEtc">
-                                    <p className="recipeAuthor commuAuthor">{post.author}</p>
-                                    <p className="recipeDate commuDate">{post.date}</p>
-                                </div>
+                {filteredRecipePost.map((post, i) => (
+                    <li key={i} className="recipeList commuList">
+                        <div className="txtBox">
+                            <h4 className="recipeTitle commuTitle">{post.title}</h4>
+                            <p className="recipeContent commuContent">{post.content}</p>
+                            <div className="recipeEtc commuEtc">
+                                <p className="recipeAuthor commuAuthor">{post.author}</p>
+                                <p className="recipeDate commuDate">{post.date}</p>
                             </div>
-                            <img src={post.img || "https://via.placeholder.com/50"} alt="" />
-                        </li>
-                    )
-                })}
+                        </div>
+                        <img src={post.img || "https://via.placeholder.com/50"} alt="" />
+                    </li>
+                ))}
             </ul>
-            <Link to="/community/write"><button className="writingBtn"><span class="material-symbols-outlined">edit</span></button></Link>
+            <Link to="/community/write">
+                <button className="writingBtn">
+                    <span className="material-symbols-outlined">edit</span>
+                </button>
+            </Link>
         </>
     );
-}
+};
 
 const FreePostBBS = () => {
     const [freePost, setFreePost] = useState([]);
