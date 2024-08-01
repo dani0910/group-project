@@ -1,35 +1,20 @@
 import React, { useEffect, useState} from "react";
 import "./css/community.css";
 import { Header, MenuBar } from '../main/main';
+import { Link } from "react-router-dom"
+import Pagination from "react-js-pagination";
 
 const Community = () => {
-    const [recipePost, setRecipePost] = useState([]);
-    const [freePost, setFreePost] = useState([]);
     const [currentTab, setCurrentTab] = useState('recipe');
-
-    useEffect(()=>{
-        const allRecipePost = [
-            {title: '레시피1', content: '내용물1', author: '작성자', date: '7/27', img:''},
-            {title: '레시피1', content: '내용물2', author: '작성자', date: '7/27', img:''},
-        ];
-        const allFreePost = [
-            {title: '자유게시물1', content: '내용물1', author: '작성자', date: '7/28', img:''},
-            {title: '자유게시물2', content: '내용물2', author: '작성자', date: '7/25', img:''},
-        ];
-        setRecipePost(allRecipePost);
-        setFreePost(allFreePost);
-    }, []);
-    
-
 
     return(
         <>
             <Header />
             <main className="communityMain main">
-                <section id="sectionBBS">
-                    <div className="tabsBBS">
-                        <button className="recipeBtn" onClick={()=> setCurrentTab('recipe')}>레시피 게시판</button>
-                        <button className="freeBtn" onClick={()=> setCurrentTab('free')}>자유 게시판</button>
+                <section className="sectionBBS commuSection">
+                    <div className="tabsBBS commuHeader">
+                        <button className={`recipeBtn ${currentTab === 'recipe' ? 'active' : ''}`} onClick={()=> setCurrentTab('recipe')}>레시피 게시판</button>
+                        <button className={`freeBtn ${currentTab === 'free' ? 'active' : ''}`} onClick={()=> setCurrentTab('free')}>자유 게시판</button>
                     </div>
                     {/* {currentTab == 'recipe' &&(
                         <>
@@ -56,11 +41,10 @@ const RecipePostBBS = () => {
     useEffect(()=>{
         const allRecipePost = [
             {title: '레시피1', content: '내용물1', author: '작성자', date: '7/27', img:''},
-            {title: '레시피1', content: '내용물2', author: '작성자', date: '7/27', img:''},
+            {title: '레시피2', content: '내용물2', author: '작성자', date: '7/27', img:''},
         ];
         setRecipePost(allRecipePost);
     }, []);
-    console.log('a')
 
     return(
         <>
@@ -73,35 +57,57 @@ const RecipePostBBS = () => {
                     return(
                         <li key={i} className="recipeList commuList">
                             <div className="txtBox">
-                                <h4 className="recipeTitle">{post.title}</h4>
-                                <p className="recipeContent">{post.content}</p>
-                                <div className="recipeEtc">
-                                    <p className="recipeAuthor">{post.author}</p>
-                                    <p className="recipeAuthor">{post.date}</p>
+                                <h4 className="recipeTitle commuTitle">{post.title}</h4>
+                                <p className="recipeContent commuContent">{post.content}</p>
+                                <div className="recipeEtc commuEtc">
+                                    <p className="recipeAuthor commuAuthor">{post.author}</p>
+                                    <p className="recipeDate commuDate">{post.date}</p>
                                 </div>
                             </div>
-                            <img src="" alt="" />
+                            <img src={post.img || "https://via.placeholder.com/50"} alt="" />
                         </li>
                     )
                 })}
             </ul>
-
-
-
-            <button className="writingBtn"><span class="material-symbols-outlined">edit</span></button>
+            <Link to="/community/write"><button className="writingBtn"><span class="material-symbols-outlined">edit</span></button></Link>
         </>
     );
 }
 
 const FreePostBBS = () => {
-
+    const [freePost, setFreePost] = useState([]);
+    useEffect(()=>{
+        const allFreePost = [
+            {title: '자유게시물1', content: '내용물1', author: '작성자', date: '7/28', img:''},
+            {title: '자유게시물2', content: '내용물2', author: '작성자', date: '7/25', img:''},
+        ];
+        setFreePost(allFreePost);
+    }, []);
+    
     return(
         <>
-            {/* <form className="recipeForm commuForm">
-                <input type="text" className="searchInput" placeholder="레시피 검색"/>
+            <form className="freeForm commuForm">
+                <input type="text" className="searchInput" placeholder="게시글 검색"/>
                 <button className="searchBtn"><span class="material-symbols-outlined">search</span></button>
-            </form> */}
-            <p>자유 게시판임</p>
+            </form>
+            <ul className="freeBox commuBox">
+                {freePost.map((post,i)=>{
+                    return(
+                        <li key={i} className="freeList commuList">
+                            <div className="txtBox">
+                                <h4 className="freeTitle commuTitle">{post.title}</h4>
+                                <p className="freeContent commuContent">{post.content}</p>
+                                <div className="freeEtc commuEtc">
+                                    <p className="freeAuthor commuAuthor">{post.author}</p>
+                                    <p className="freeDate commuDate">{post.date}</p>
+                                </div>
+                            </div>
+                            <img src={post.img || "https://via.placeholder.com/50"} alt="" />
+                        </li>
+                    )
+                })}
+            </ul>
+            <button className="writingBtn"><span class="material-symbols-outlined">edit</span></button>
         </>
     );
 }

@@ -5,6 +5,16 @@
     color: #000;
     overflow: hidden;
 }
+button{
+    border: none;
+    background: none;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
 
 #root{
     background: #fff;
