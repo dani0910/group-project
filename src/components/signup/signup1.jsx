@@ -45,8 +45,10 @@ const SignUpPage1 = () => {
         if (!response.ok) {
           if (response.status === 400) {
             alert("이미 존재하는 ID입니다");
+            return;
           } else {
             alert("서버에서 오류가 발생했습니다.");
+            return;
           }
         }
 

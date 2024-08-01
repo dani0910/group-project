@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const FoodSearch = () => {
-  const [activeTab, setActiveTab] = useState('allPage');
+  const [activeTab, setActiveTab] = useState("allPage");
 
   const base_url =
     "http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1";
@@ -27,7 +27,9 @@ const FoodSearch = () => {
   const [foods, setfoods] = useState([]);
   const locaion = useLocation();
   const time = locaion.state?.time || "";
-
+  const goBack = () => {
+    navigate("/home/food_type_select");
+  };
   const onsubmit = (e) => {
     e.preventDefault();
     query_by_food_name(food).then((data) => {
@@ -48,39 +50,51 @@ const FoodSearch = () => {
     <>
       <Header />
       <main class="main foodMain">
-        <h4 className="prevBtnFood">&lt; 아침</h4>
+        <h4 className="prevBtnFood" onClick={goBack}>
+          &lt; {time}
+        </h4>
         <form onSubmit={onsubmit} className="searchContainer">
-          <input type="text" placeholder="음식 검색" onChange={getFood}/>
-          <button className="searchBtn"><span class="material-symbols-outlined">search</span></button>
+          <input type="text" placeholder="음식 검색" onChange={getFood} />
+          <button className="searchBtn">
+            <span class="material-symbols-outlined">search</span>
+          </button>
         </form>
         <section className="resultContainer">
           <div className="tabs">
-          <button
-              className={`allBtn ${activeTab === 'allPage' ? 'active' : ''}`}
+            <button
+              className={`allBtn ${activeTab === "allPage" ? "active" : ""}`}
               onClick={() => {
-                setActiveTab('allPage')
-                console.log(activeTab)
+                setActiveTab("allPage");
+                console.log(activeTab);
               }}
             >
               전체
             </button>
             <button
-              className={`bookmarkBtn ${activeTab === 'bookmark' ? 'active' : ''}`}
-              onClick={() => setActiveTab('bookmark')}
+              className={`bookmarkBtn ${
+                activeTab === "bookmark" ? "active" : ""
+              }`}
+              onClick={() => setActiveTab("bookmark")}
             >
               즐겨찾기
             </button>
             <button
-              className={`selfAddBtn ${activeTab === 'selfAdd' ? 'active' : ''}`}
-              onClick={() => setActiveTab('selfAdd')}
+              className={`selfAddBtn ${
+                activeTab === "selfAdd" ? "active" : ""
+              }`}
+              onClick={() => setActiveTab("selfAdd")}
             >
               직접 추가
             </button>
           </div>
           <>
-            {activeTab == "allPage" ? /* 버튼 눌렀을 때 해당 페이지 뜨도록 */
-              <AllBtnSection foods={foods} time={time} navigate={navigate} /> 
-              : activeTab == "bookmark" ? <BookmarkSection /> : <SelfAddSection />}
+            {activeTab == "allPage" /* 버튼 눌렀을 때 해당 페이지 뜨도록 */ ? (
+              <AllBtnSection foods={foods} time={time} navigate={navigate} />
+            ) : activeTab == "bookmark" ? (
+              <BookmarkSection />
+            ) : (
+              <SelfAddSection />
+            )}
           </>
         </section>
       </main>
@@ -89,8 +103,8 @@ const FoodSearch = () => {
   );
 };
 
-const AllBtnSection = ({foods,time,navigate}) => {
-  return(
+const AllBtnSection = ({ foods, time, navigate }) => {
+  return (
     <form>
       <ul
         className="foodResultBox"
@@ -101,54 +115,55 @@ const AllBtnSection = ({foods,time,navigate}) => {
           border: "1px solid #ddd",
         }}
       >
-      {foods &&
-        foods.map((item, index) => (
-          <li key={index}>
-            <div className="foodName" style={{ flex: 1 }}>
-              <p className="foodTxt">{item.DESC_KOR}</p>
-              <p className="gram"> (100g)</p>
-            </div>
-            <p className="foodKcal">{item.NUTR_CONT1} kcal</p>
-            <button
-              className="addBtn "
-              type="button"
-              onClick={() => {
-                const temp_foodinfo = {
-                  name: item.DESC_KOR,
-                  time: time,
-                  calories: item.NUTR_CONT1,
-                  carb: item.NUTR_CONT2,
-                  protein: item.NUTR_CONT3,
-                  fat: item.NUTR_CONT4,
-                };
-                console.log(temp_foodinfo);
+        {foods &&
+          foods.map((item, index) => (
+            <li key={index}>
+              <div className="foodName" style={{ flex: 1 }}>
+                <p className="foodTxt">{item.DESC_KOR}</p>
+                <p className="gram"> (100g)</p>
+              </div>
+              <p className="foodKcal">{item.NUTR_CONT1} kcal</p>
+              <button
+                className="addBtn "
+                type="button"
+                onClick={() => {
+                  const temp_foodinfo = {
+                    name: item.DESC_KOR,
+                    time: time,
+                    calories: item.NUTR_CONT1,
+                    carb: item.NUTR_CONT2,
+                    protein: item.NUTR_CONT3,
+                    fat: item.NUTR_CONT4,
+                  };
+                  console.log(temp_foodinfo);
                   navigate("/home/food_ingredient", {
-                  state: { foodinfo: temp_foodinfo },
-                });
-              }}
-            >추가</button>
-          </li>
-        ))}
+                    state: { foodinfo: temp_foodinfo },
+                  });
+                }}
+              >
+                추가
+              </button>
+            </li>
+          ))}
       </ul>
     </form>
-  )
-}
+  );
+};
 
 const BookmarkSection = () => {
-  return(
+  return (
     <>
       <p>즐겨찾기 페이지</p>
     </>
   );
-}
+};
 
-const  SelfAddSection = () => {
-  return(
+const SelfAddSection = () => {
+  return (
     <>
       <p>직접 추가 페이지</p>
     </>
   );
-}
-
+};
 
 export default FoodSearch;
