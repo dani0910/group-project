@@ -20,10 +20,10 @@ const SelectFoodType = () => {
 
 const TypeOfMealsModal = () => {
   const type = [
-    { text: "아침", className: "아침" },
-    { text: "점심", className: "점심" },
-    { text: "저녁", className: "저녁" },
-    { text: "간식", className: "간식" },
+    { text: "아침", className: "breakfast" },
+    { text: "점심", className: "lunch" },
+    { text: "저녁", className: "dinner" },
+    { text: "간식", className: "snacks" },
   ];
 
   const [time, setTime] = useState("");

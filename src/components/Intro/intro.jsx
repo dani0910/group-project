@@ -37,8 +37,10 @@ const IntroPage = () => {
         if (!response.ok) {
           if (response.status === 401) {
             alert("아이디 또는 패스워드가 틀렸습니다.");
+            return;
           } else {
             alert("서버에서 오류가 발생했습니다.");
+            return;
           }
         }
 
@@ -90,9 +92,7 @@ const IntroPage = () => {
         </button>
 
         <button className="signupBtn">
-          <Link to="/signup1">
-            화원가입
-          </Link>
+          <Link to="/signup1">화원가입</Link>
         </button>
       </form>
     </section>
