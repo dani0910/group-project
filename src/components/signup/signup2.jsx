@@ -22,7 +22,9 @@ const SignUpPage2 = () => {
     weight: weight,
   };
 
-  const username = location.state?.Nname || "이용자";
+  const savedSignup = location.state?.savedSignup || {};
+  const username = savedSignup.name;
+  console.log(savedSignup);
   const onSignup2 = (e) => {
     e.preventDefault();
 
@@ -31,11 +33,11 @@ const SignUpPage2 = () => {
       alert("모든 입력칸을 채워주십시오");
       return;
     } else {
-      navigate("/signup3", { state: { username, savedSignup2 } });
+      navigate("/signup3", { state: { savedSignup, savedSignup2 } });
     }
   };
   useEffect(() => setSavedSignup2(savedInfo), [age, gender, height, weight]);
-  
+
   return (
     <>
       <header>

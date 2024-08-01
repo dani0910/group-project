@@ -8,7 +8,7 @@ const IntroPage = () => {
   const [ID, setID] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const baseURL = `http://rollforward.xyz:3000/api/login/`;
+  const baseURL = `http://127.0.0.1:8000/api/login/`;
   const getId = (e) => {
     setID(e.target.value);
   };
@@ -27,7 +27,7 @@ const IntroPage = () => {
     } else {
       try {
         const response = await fetch(baseURL, {
-          method: "post",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -51,7 +51,7 @@ const IntroPage = () => {
         navigate("/home");
       } catch (error) {
         console.error("Error occurred during login:", error);
-        alert("Error occurred" + error.message);
+        alert("Error occurred " + error.message);
       }
     }
   };

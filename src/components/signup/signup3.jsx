@@ -7,32 +7,70 @@ import { Link } from "react-router-dom";
 const SignUpPage3 = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const username = location.state?.username || "이용자";
-  const savedInfo = location.state.savedSignup2;
+  const savedSignup = location.state.savedSignup;
+  const username = savedSignup.name;
+  const savedSignup2 = location.state.savedSignup2;
   const [range, setRange] = useState(0);
+  const baseURL = "http://127.0.0.1:8000/api/register/";
 
   const getRange = (e) => setRange(e.target.value);
 
-  const onSignup3 = (e) => {
+  const onSignup3 = async (e) => {
     e.preventDefault();
 
     if (!range) {
       alert("한 가지 항목을 선택해 주십시오.");
       return;
     } else {
-      const gender = savedInfo.gender;
-      const height = savedInfo.height;
-      const standard_weight = gender === "female"
-        ? (Math.pow(parseInt(height) / 100, 2) * 21).toFixed(2)
-        : (Math.pow(parseInt(height) / 100, 2) * 22).toFixed(2);
+      const gender = savedSignup2.gender;
+      const height = savedSignup2.height;
+      const standard_weight =
+        gender === "female"
+          ? (Math.pow(parseInt(height) / 100, 2) * 21).toFixed(2)
+          : (Math.pow(parseInt(height) / 100, 2) * 22).toFixed(2);
       const requiredIntake = (standard_weight * parseInt(range)).toFixed(2);
 
       console.log(`표준체중: ${standard_weight}`);
       console.log(`권장섭취량: ${requiredIntake}`);
-      localStorage.setItem("required_intake", requiredIntake);
 
-      alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
-      navigate("/");
+      try {
+        const response = await fetch(baseURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: savedSignup.email,
+            name: savedSignup.name,
+            activity_level: range,
+            height: height,
+            weight: savedSignup2.weight,
+            required_intake: requiredIntake,
+            username: savedSignup.username,
+            password: savedSignup.password,
+          }),
+        });
+
+        if (!response.ok) {
+          if (response.status === 400) {
+            alert("이미 존재하는 ID입니다");
+
+            return;
+          } else {
+            alert("서버에서 오류가 발생했습니다.");
+
+            return;
+          }
+        }
+
+        const data = await response.json();
+        console.log("response received", data);
+        alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
+        navigate("/");
+      } catch (error) {
+        console.error("Error occurred during signup:", error);
+        alert("Error occurred" + error.message);
+      }
     }
   };
 
