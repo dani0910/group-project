@@ -23,7 +23,7 @@ const TypeOfMealsModal = () => {
     { text: "아침", className: "breakfast" },
     { text: "점심", className: "lunch" },
     { text: "저녁", className: "dinner" },
-    { text: "간식", className: "snacks" },
+    { text: "간식", className: "snack" },
   ];
 
   const [time, setTime] = useState("");

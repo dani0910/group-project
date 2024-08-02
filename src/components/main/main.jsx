@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link, NavLink } from "react-router-dom";
 const MainPage = () => {
   const [profile, setProfile] = useState({});
+  const location = useLocation();
+  const token = localStorage.getItem("token");
   const getProfile = async (e) => {
-    const token = localStorage.getItem("token");
-
     if (!token) {
       alert("No token found");
       return;
@@ -36,6 +36,7 @@ const MainPage = () => {
 
   useEffect(() => {
     getProfile();
+    console.log("savedmeals : ", savedMeals);
   }, []);
 
   const requiredIntake = profile.required_intake || 0;
@@ -44,9 +45,15 @@ const MainPage = () => {
   const requiredProtein =
     ((parseFloat(requiredIntake) * 0.15) / 4).toFixed(1) || 0;
   const requiredFat = ((parseFloat(requiredIntake) * 0.22) / 9).toFixed(1) || 0;
+  const initialMeals = location.state?.savedMeals || {};
+  const [savedMeals, setSavedMeals] = useState(initialMeals);
 
-  const savedMeals = JSON.parse(localStorage.getItem("savedMeals") || "[]");
-  const totalIntake = {
+  useEffect(() => {
+    // location.state?.savedMeals가 변경될 때 상태를 업데이트
+    setSavedMeals(location.state?.savedMeals || {});
+  }, [location.state?.savedMeals]);
+
+  /*const totalIntake = {
     breakfast: { calories: 0, carbs: 0, protein: 0, fat: 0 },
     lunch: { calories: 0, carbs: 0, protein: 0, fat: 0 },
     dinner: { calories: 0, carbs: 0, protein: 0, fat: 0 },
@@ -82,7 +89,7 @@ const MainPage = () => {
     total_carbs: totalIntake.total.carbs,
     total_protein: totalIntake.total.protein,
     total_fat: totalIntake.total.fat,
-  };
+  }; */
 
   return (
     <>
@@ -92,7 +99,9 @@ const MainPage = () => {
         re_carb={requiredCarbs}
         re_prot={requiredProtein}
         re_fat={requiredFat}
-        totalInfo={totalInfo}
+        savedMeals={savedMeals}
+        setSavedMeals={setSavedMeals}
+        token={token}
       />
       <MenuBar />
     </>
@@ -110,13 +119,60 @@ const Header = () => {
   );
 };
 
-const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
+const MainPageContent = ({
+  re_cal,
+  re_carb,
+  re_prot,
+  re_fat,
+  savedMeals,
+  token,
+  setSavedMeals,
+}) => {
+  console.log("Saved meals in MainPageContent:", savedMeals, token);
   const foodType = [
     { text: "아침", value: "breakfast" },
     { text: "점심", value: "lunch" },
     { text: "저녁", value: "dinner" },
-    { text: "기타", value: "snacks" },
+    { text: "기타", value: "snack" },
   ];
+  const [deleteFlag, setDeleteFlag] = useState(false);
+  const baseURL = "http://127.0.0.1:8000/api/food-intake/";
+  const ondelete = async (e) => {
+    e.preventDefault();
+
+    const confirmedDelete = window.confirm(
+      "그동안의 모든 식단 데이터를 삭제하시겠습니까?"
+    );
+    if (confirmedDelete) {
+      try {
+        const response = await fetch(baseURL, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            alert("삭제할 데이터가 없습니다.");
+            return;
+          } else if (response.state === 401) {
+            alert("인증이 필요합니다.");
+            return;
+          } else {
+            alert("서버에서 오류가 발생했습니다.");
+            return;
+          }
+        }
+
+        alert("모든 식단 데이터가 삭제되었습니다.");
+        setDeleteFlag(true);
+      } catch (error) {
+        console.error("Error occurred during delete:", error);
+        alert("Error occurred " + error.message);
+      }
+    }
+  };
 
   return (
     <main className="main mainContainer">
@@ -133,7 +189,7 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
           <div className="caloriesBox">
             <div>
               <p>식사 별 칼로리</p>
-              <button className="editBtn">
+              <button className="editBtn" onClick={ondelete}>
                 <span class="material-symbols-outlined">edit</span>
               </button>
             </div>
@@ -142,7 +198,12 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
                 return (
                   <li className={`${type.value}List`} key={i}>
                     <p>{type.text}</p>
-                    <p>{totalInfo[`total_${type.value}`]}kcal</p>
+                    <p>
+                      {deleteFlag
+                        ? 0
+                        : savedMeals[type.value]?.total_calories || 0}
+                      kcal
+                    </p>
                   </li>
                 );
               })}
@@ -159,28 +220,30 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
             <span></span>
             <p className="kcalTxt">칼로리</p>
             <p className="kcalData">
-              {totalInfo.total_calories} / {re_cal} kcal
+              {deleteFlag ? 0 : savedMeals.daily?.total_calories || 0} /{" "}
+              {re_cal} kcal
             </p>
           </li>
           <li className="carbohydrateContent">
             <span></span>
             <p className="carbohydrateTxt">탄수화물</p>
             <p className="carbohydrateData">
-              {totalInfo.total_carbs} /{re_carb} g{" "}
+              {deleteFlag ? 0 : savedMeals.daily?.total_carbs || 0} /{re_carb} g{" "}
             </p>
           </li>
           <li className="proteinContent">
             <span></span>
             <p className="proteinTxt">단백질</p>
             <p className="proteinData">
-              {totalInfo.total_protein} / {re_prot} g
+              {deleteFlag ? 0 : savedMeals.daily?.total_protein || 0} /{" "}
+              {re_prot} g
             </p>
           </li>
           <li className="lipidContent">
             <span></span>
             <p className="lipidTxt">지방</p>
             <p className="lipidData">
-              {totalInfo.total_fat} / {re_fat} g
+              {deleteFlag ? 0 : savedMeals.daily?.total_fat || 0} / {re_fat} g
             </p>
           </li>
           <p>자세히 보기 &gt;</p>
