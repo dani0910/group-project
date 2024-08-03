@@ -6,6 +6,18 @@ const MainPage = () => {
   const [profile, setProfile] = useState({});
   const location = useLocation();
   const token = localStorage.getItem("token");
+  const loadFlag = localStorage.getItem("loadFlag");
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const currentDate = getCurrentDate();
+  console.log(currentDate);
+
   const getProfile = async (e) => {
     if (!token) {
       alert("No token found");
@@ -34,9 +46,36 @@ const MainPage = () => {
     }
   };
 
+  const onLoadMeals = async (e) => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/food-intake/?date=${currentDate}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        alert("서버에서 오류가 발생했습니다.");
+        return;
+      }
+
+      const data = await response.json();
+      console.log("response received", data);
+      setSavedMeals(data);
+    } catch (error) {
+      console.error("Error occurred during login:", error);
+      alert("Error occurred " + error.message);
+    }
+  };
+
   useEffect(() => {
     getProfile();
-    console.log("savedmeals : ", savedMeals);
+    onLoadMeals();
   }, []);
 
   const requiredIntake = profile.required_intake || 0;
@@ -45,51 +84,7 @@ const MainPage = () => {
   const requiredProtein =
     ((parseFloat(requiredIntake) * 0.15) / 4).toFixed(1) || 0;
   const requiredFat = ((parseFloat(requiredIntake) * 0.22) / 9).toFixed(1) || 0;
-  const initialMeals = location.state?.savedMeals || {};
-  const [savedMeals, setSavedMeals] = useState(initialMeals);
-
-  useEffect(() => {
-    // location.state?.savedMeals가 변경될 때 상태를 업데이트
-    setSavedMeals(location.state?.savedMeals || {});
-  }, [location.state?.savedMeals]);
-
-  /*const totalIntake = {
-    breakfast: { calories: 0, carbs: 0, protein: 0, fat: 0 },
-    lunch: { calories: 0, carbs: 0, protein: 0, fat: 0 },
-    dinner: { calories: 0, carbs: 0, protein: 0, fat: 0 },
-    snacks: { calories: 0, carbs: 0, protein: 0, fat: 0 },
-    total: { calories: 0, carbs: 0, protein: 0, fat: 0 },
-  };
-  savedMeals.forEach((meal) => {
-    const calories = parseFloat(meal.new_calories) || 0;
-    const carbs = parseFloat(meal.new_carbs) || 0;
-    const protein = parseFloat(meal.new_protein) || 0;
-    const fat = parseFloat(meal.new_fat) || 0;
-
-    const time = meal.time || "";
-
-    if (totalIntake[time]) {
-      totalIntake[time].calories += calories;
-      totalIntake[time].carbs += carbs;
-      totalIntake[time].protein += protein;
-      totalIntake[time].fat += fat;
-    }
-
-    totalIntake.total.calories += calories;
-    totalIntake.total.carbs += carbs;
-    totalIntake.total.protein += protein;
-    totalIntake.total.fat += fat;
-  });
-  const totalInfo = {
-    total_breakfast: totalIntake.breakfast.calories,
-    total_lunch: totalIntake.lunch.calories,
-    total_dinner: totalIntake.dinner.calories,
-    total_snacks: totalIntake.snacks.calories,
-    total_calories: totalIntake.total.calories,
-    total_carbs: totalIntake.total.carbs,
-    total_protein: totalIntake.total.protein,
-    total_fat: totalIntake.total.fat,
-  }; */
+  const [savedMeals, setSavedMeals] = useState({});
 
   return (
     <>
@@ -137,6 +132,7 @@ const MainPageContent = ({
   ];
   const [deleteFlag, setDeleteFlag] = useState(false);
   const baseURL = "http://127.0.0.1:8000/api/food-intake/";
+
   const ondelete = async (e) => {
     e.preventDefault();
 
@@ -172,6 +168,11 @@ const MainPageContent = ({
         alert("Error occurred " + error.message);
       }
     }
+  };
+
+  const navigate = useNavigate();
+  const onRecomend = () => {
+    navigate("/home/food_recommendation", { state: { savedMeals } });
   };
 
   return (
@@ -249,11 +250,9 @@ const MainPageContent = ({
           <p>자세히 보기 &gt;</p>
         </ul>
       </section>
-      <section id="recommendationSection">
-        <Link to="/home/food_recommendation">
-          <h3>나에게 맞는 식단 추천 받으러 가기</h3>
-          <span class="material-symbols-outlined">arrow_forward_ios</span>
-        </Link>
+      <section id="recommendationSection" onClick={onRecomend}>
+        <h3>나에게 맞는 식단 추천 받으러 가기</h3>
+        <span class="material-symbols-outlined">arrow_forward_ios</span>
       </section>
     </main>
   );

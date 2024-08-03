@@ -23,7 +23,6 @@ const IngredientModal = () => {
   const fat = parseFloat(foodinfo.fat);
   const [number, setnumber] = useState(100);
   const [meal, setMeal] = useState({});
-  const [savedMeals, setSavedMeals] = useState([]);
   const [saveMealsFlag, setSaveMealsFlag] = useState(false);
   const baseURL = "http://127.0.0.1:8000/api/food-intake/";
   const token = localStorage.getItem("token");
@@ -44,21 +43,15 @@ const IngredientModal = () => {
   };
   useEffect(() => {
     const newMeal = {
-      new_calories: ((parseFloat(cal) * number) / 100).toFixed(2),
-      new_carbs: ((parseFloat(carb) * number) / 100).toFixed(2),
-      new_protein: ((parseFloat(protein) * number) / 100).toFixed(2),
-      new_fat: ((parseFloat(fat) * number) / 100).toFixed(2),
+      new_calories: ((parseFloat(cal) * number) / 100).toFixed(1),
+      new_carbs: ((parseFloat(carb) * number) / 100).toFixed(1),
+      new_protein: ((parseFloat(protein) * number) / 100).toFixed(1),
+      new_fat: ((parseFloat(fat) * number) / 100).toFixed(1),
       time: time,
       date: getDate(),
     };
     setMeal(newMeal);
   }, [cal, carb, protein, fat, number]);
-
-  /*
-  useEffect(() => {
-    const loadedMeals = JSON.parse(localStorage.getItem("savedMeals")) || []; // <-- 변경된 부분
-    setSavedMeals(loadedMeals);
-  }, []); */
 
   const onclick = async (e) => {
     e.preventDefault();
@@ -86,25 +79,16 @@ const IngredientModal = () => {
 
       const data = await response.json();
       console.log("response received", data);
-      setSavedMeals(data);
       setSaveMealsFlag(true);
     } catch (error) {
       console.error("Error occurred during login:", error);
       alert("Error occurred " + error.message);
     }
-    /*setSavedMeals((prevMeal) => {
-      const updatedMeals = [...prevMeal, meal];
-      localStorage.setItem("savedMeals", JSON.stringify(updatedMeals));
-      setSaveMealsFlag(true);
-      return updatedMeals;
-    });
-    // navigate("/home/food_search"); */
   };
 
   useEffect(() => {
     if (saveMealsFlag) {
-      console.log("savedmeals :", savedMeals);
-      navigate("/home", { state: { savedMeals } });
+      navigate("/home");
     }
   }, [saveMealsFlag]);
 
