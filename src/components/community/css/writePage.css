@@ -47,9 +47,10 @@
 .writeContainer > .optionBox > div{
     width: 50%;
     font-size: 12px;
+    width: 100px;
 }
 .writeContainer > .optionBox > .photoOption > p{
-    border-right: 1px solid #c4c4c4;
+    border-right: 1px solid #c4c4c4;   
 }
 
 .writeContainer > textarea{

@@ -8,9 +8,8 @@ const WritePage = () => {
     const [content, setContent] = useState('');
     const [img, setImg] = useState('');
     const navigate = useNavigate();
-    const [ recipePost, setRecipePost ] = useState('');
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newPost  = {
             title, 
@@ -19,15 +18,31 @@ const WritePage = () => {
             date: new Date().toLocaleDateString('ko-KR'), 
             img: ' '
         }
+        console.log(newPost)
 
-        setRecipePost((prevPosts) => {
-                const recipePost = [...prevPosts, newPost];
-                console.log('추가된 post', newPost);
-                console.log('전체 post', recipePost);
-                return recipePost;
-        })
-        navigate("/community", { state: { recipePost} }); // 페이지 넘어갈 때 값 전달이 안됨 
-    };
+        try {
+            const response = await fetch("http://localhost:8000/blogs/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newPost)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Success:', result);
+                navigate('/community', { state: { newPost: result } }); // 작성된 글을 상태로 전달
+            } else {
+                throw new Error('Failed to post');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
+        navigate('/community', { state: { newPost }})
+
+    }
 
     return(
         <>
