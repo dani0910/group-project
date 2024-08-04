@@ -2,8 +2,7 @@ import React from "react";
 import "./css/mainPage.css";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link, NavLink } from "react-router-dom";
-const MainPage = () => {
-  const [profile, setProfile] = useState({});
+const MainPage = ({ profile, setProfile }) => {
   const location = useLocation();
   const token = localStorage.getItem("token");
   const loadFlag = localStorage.getItem("loadFlag");
@@ -172,7 +171,15 @@ const MainPageContent = ({
 
   const navigate = useNavigate();
   const onRecomend = () => {
-    navigate("/home/food_recommendation", { state: { savedMeals } });
+    navigate("/home/food_recommendation", {
+      state: {
+        dailyMeals: savedMeals.daily,
+        re_cal: re_cal,
+        re_carb: re_carb,
+        re_fat: re_fat,
+        re_prot: re_prot,
+      },
+    });
   };
 
   return (

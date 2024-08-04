@@ -1,5 +1,6 @@
 /* import './App.css'; */
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
 import IntroPage from "./components/Intro/intro";
 import SignUpPage1 from "./components/signup/signup1";
 import SignUpPage2 from "./components/signup/signup2";
@@ -9,9 +10,11 @@ import SelectFoodType from "./components/main/selectFoodType";
 import FoodSearch from "./components/main/foodSearch";
 import IngredientModal from "./components/main/ingredientModal";
 import Recommendation from "./components/main/recommendation";
-import Community from"./components/community/community"
+import Community from "./components/community/community";
+import Mypage from "./components/mypage/mypage";
 
 function App() {
+  const [profile, setProfile] = useState({});
   return (
     <>
       <Router>
@@ -20,12 +23,25 @@ function App() {
           <Route path="/signup1" element={<SignUpPage1 />}></Route>
           <Route path="/signup2" element={<SignUpPage2 />}></Route>
           <Route path="/signup3" element={<SignUpPage3 />}></Route>
-          <Route path="/home" element={<MainPage />}></Route>
-          <Route path="/home/food_type_select" element={<SelectFoodType />}></Route>
+          <Route
+            path="/home"
+            element={<MainPage profile={profile} setProfile={setProfile} />}
+          ></Route>
+          <Route
+            path="/home/food_type_select"
+            element={<SelectFoodType />}
+          ></Route>
           <Route path="/home/food_search" element={<FoodSearch />}></Route>
-          <Route path="/home/food_ingredient" element={<IngredientModal />}></Route>
-          <Route path="/home/food_recommendation" element={<Recommendation />}></Route>
+          <Route
+            path="/home/food_ingredient"
+            element={<IngredientModal />}
+          ></Route>
+          <Route
+            path="/home/food_recommendation"
+            element={<Recommendation />}
+          ></Route>
           <Route path="/community" element={<Community />}></Route>
+          <Route path="/mypage" element={<Mypage profile={profile} />}></Route>
         </Routes>
       </Router>
     </>
