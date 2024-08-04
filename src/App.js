@@ -7,7 +7,6 @@ import SignUpPage2 from "./components/signup/signup2";
 import SignUpPage3 from "./components/signup/signup3";
 import MainPage from "./components/main/main";
 import FoodSearch from "./components/main/foodSearch";
-import IngredientModal from "./components/main/ingredientModal";
 import Recommendation from "./components/main/recommendation";
 
 import WritePage from "./components/community/writePage";
@@ -32,16 +31,8 @@ function App() {
             path="/home"
             element={<MainPage profile={profile} setProfile={setProfile} />}
           ></Route>
-          <Route
-            path="/home/food_type_select"
-            element={<SelectFoodType />}
-          ></Route>
 
           <Route path="/home/food_search" element={<FoodSearch />}></Route>
-          <Route
-            path="/home/food_ingredient"
-            element={<IngredientModal />}
-          ></Route>
           <Route
             path="/home/food_recommendation"
             element={<Recommendation />}

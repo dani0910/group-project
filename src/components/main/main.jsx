@@ -8,6 +8,7 @@ const MainPage = ({ profile, setProfile }) => {
   const location = useLocation();
   const token = localStorage.getItem("token");
   const loadFlag = localStorage.getItem("loadFlag");
+
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -75,11 +76,6 @@ const MainPage = ({ profile, setProfile }) => {
   };
 
   useEffect(() => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleModalOpen = () => setIsModalOpen(true);
-    const handleModalClose = () => setIsModalOpen(false);
-
     getProfile();
     onLoadMeals();
   }, []);
@@ -91,6 +87,12 @@ const MainPage = ({ profile, setProfile }) => {
     ((parseFloat(requiredIntake) * 0.15) / 4).toFixed(1) || 0;
   const requiredFat = ((parseFloat(requiredIntake) * 0.22) / 9).toFixed(1) || 0;
   const [savedMeals, setSavedMeals] = useState({});
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
 
   return (
     <>
@@ -127,13 +129,19 @@ const Header = () => {
   );
 };
 
-const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
+const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, token, savedMeals, onOpen, setSavedMeals, totalInfo }) => {
   const foodType = [
     { text: "아침", value: "breakfast" },
     { text: "점심", value: "lunch" },
     { text: "저녁", value: "dinner" },
     { text: "기타", value: "snack" },
   ];
+  const nutrition = [
+    {text: '칼로리', value: 'calories', unit: 'kal', recommended: "re_cal"},
+    {text: '탄수화물', value: 'carbs', unit: 'g', recommended: "re_carb"},
+    {text: '단백질', value: 'protein', unit: 'g', recommended: "re_prot"},
+    {text: '지방', value: 'fat', unit: 'g', recommended: "re_fat"}
+  ]
   const [deleteFlag, setDeleteFlag] = useState(false);
   const baseURL = "http://127.0.0.1:8000/api/food-intake/";
 
@@ -212,10 +220,8 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
                 return (
                   <li className={`${type.value}List`} key={i}>
                     <p>{type.text}</p>
-
                     <p>
-                      {deleteFlag
-                        ? 0
+                      {deleteFlag ? 0
                         : savedMeals[type.value]?.total_calories || 0}
                       kcal
                     </p>
@@ -230,37 +236,24 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
       <section id="analysisSection">
         <h3 className="h3Txt">현재 섭취량 / 하루 권장 섭취량</h3>
         <ul className="detailBox">
-          <li className="kcalContent">
+          {nutrition.map((item,i)=>{
+            return(
+              <li className={`${item.value}Content`}>
+                <p className={`${item.value}Txt itemTxt`}>{item.text}</p>
+                <p className={`${item.value}Data`}>
+                {deleteFlag? 0 : (savedMeals.daily?.[`total_${item.value}`] || 0)} / {`re_${item.value}`} {item.unit}
+                </p>
+              </li>
+            )
+          })}
+          {/* <li className="kcalContent">
             <span></span>
             <p className="kcalTxt">칼로리</p>
             <p className="kcalData">
               {deleteFlag ? 0 : savedMeals.daily?.total_calories || 0} /{" "}
               {re_cal} kcal
             </p>
-          </li>
-          <li className="carbohydrateContent">
-            <span></span>
-            <p className="carbohydrateTxt">탄수화물</p>
-            <p className="carbohydrateData">
-              {deleteFlag ? 0 : savedMeals.daily?.total_carbs || 0} /{re_carb} g{" "}
-            </p>
-          </li>
-          <li className="proteinContent">
-            <span></span>
-            <p className="proteinTxt">단백질</p>
-            <p className="proteinData">
-              {deleteFlag ? 0 : savedMeals.daily?.total_protein || 0} /{" "}
-              {re_prot} g
-            </p>
-          </li>
-          <li className="lipidContent">
-            <span></span>
-            <p className="lipidTxt">지방</p>
-            <p className="lipidData">
-              {deleteFlag ? 0 : savedMeals.daily?.total_fat || 0} / {re_fat} g
-            </p>
-          </li>
-          <p>자세히 보기 &gt;</p>
+          </li> */}
         </ul>
       </section>
       <section id="recommendationSection" onClick={onRecomend}>
