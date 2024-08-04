@@ -11,6 +11,7 @@ import IngredientModal from "./components/main/ingredientModal";
 import Recommendation from "./components/main/recommendation";
 import Community from"./components/community/community"
 import WritePage from "./components/community/writePage";
+import PostDetail from "./components/community/detailPost";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/home/food_recommendation" element={<Recommendation />}></Route>
           <Route path="/community" element={<Community />}></Route>
           <Route path="/community/write" element={<WritePage />}></Route>
+          <Route path="/community/detail/:i" element={<PostDetail />}></Route>
         </Routes>
       </Router>
     </>

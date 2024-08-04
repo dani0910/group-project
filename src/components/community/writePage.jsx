@@ -7,7 +7,9 @@ const WritePage = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [img, setImg] = useState('');
+    const [selectedBoard, setSelectedBoard] = useState('recipe');
     const navigate = useNavigate();
+    const token = localStorage.getItem("token")
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,10 +23,11 @@ const WritePage = () => {
         console.log(newPost)
 
         try {
-            const response = await fetch("http://localhost:8000/blogs/", {
+            const response = await fetch("http://127.0.0.1:8000/api/posts/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify(newPost)
             });
@@ -32,15 +35,15 @@ const WritePage = () => {
             if (response.ok) {
                 const result = await response.json();
                 console.log('Success:', result);
-                navigate('/community', { state: { newPost: result } }); // 작성된 글을 상태로 전달
+                // navigate('/community', { state: { newPost: result } }); // 작성된 글을 상태로 전달
             } else {
-                throw new Error('Failed to post');
+                throw new Error('Failed to post'); //200번대 응답이 아닐 경우
             }
         } catch (error) {
             console.error('Error:', error);
         }
 
-        navigate('/community', { state: { newPost }})
+        navigate('/community', { state: { newPost }}) // 아직 배포가 안돼서 서버 통신 안되도 넘어가도록 해둠
 
     }
 
@@ -51,7 +54,11 @@ const WritePage = () => {
                 <form onSubmit={handleSubmit}className="writeSection commuSection">
                     <div className="writeHeader commuHeader">
                         <Link to='/community'>&lt;</Link>
-                        <select name="selectBBS" id="selectBBS">
+                        <select 
+                            name="selectBBS" 
+                            id="selectBBS"
+                            onChange={(e) => setSelectedBoard(e.target.value)}
+                        >
                             <option value="recipeBBS">게시판 - 레시피</option>
                             <option value="freeBBS">게시판 - 자유</option>
                         </select>

@@ -32,26 +32,43 @@ const RecipePostBBS = () => {
     const location = useLocation();
     const newPost = location.state?.newPost;
 
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/boards/");
+            if (response.ok) {
+                const result = await response.json();
+                setRecipePost(result.recipePost || []); // 서버에서 게시글 목록을 가져옴
+            } else {
+                throw new Error('Failed to fetch posts');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    useEffect(() => { // 컴포넌트 마운트 시 서버에서 게시글을 가져옴
+        fetchPosts();
+    }, []);
+
     useEffect(() => {
+        const post = [
+            {id: "1", title: '레시피1', content: '내용물1', author: '작성자', date: '7/28', img:''},
+            {id: "2", title: '레시피2', content: '내용물2', author: '작성자', date: '7/25', img:''},
+        ]; // 잘뜨나 시험용으로 만든 리스트
+        setRecipePost(post);
         if (newPost) {
-            setRecipePost(prevPosts => {
-                // Check if newPost already exists in the array
-                const isDuplicate = prevPosts.some(post => post.title === newPost.title && post.content === newPost.content);
-                if (isDuplicate) {
-                    return prevPosts;
-                } else {
-                    return [newPost, ...prevPosts];
-                }
-            });
+            setRecipePost(prevPosts => [newPost , ...prevPosts]); 
         }
     }, [newPost]);
+
 
     // 검색어를 기준으로 레시피를 필터링
     const filteredRecipePost = recipePost.filter(post => 
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.content.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
+    
+    console.log(newPost)
     console.log(recipePost)
 
     const handleSearchChange = (e) => {
@@ -75,14 +92,18 @@ const RecipePostBBS = () => {
             <ul className="recipeBox commuBox">
                 {filteredRecipePost.map((post, i) => (
                     <li key={i} className="recipeList commuList">
-                        <div className="txtBox">
+                        <Link 
+                            to={`/community/detail/${i}`}
+                            state={{post}}
+                            className="txtBox"
+                        >
                             <h4 className="recipeTitle commuTitle">{post.title}</h4>
                             <p className="recipeContent commuContent">{post.content}</p>
                             <div className="recipeEtc commuEtc">
                                 <p className="recipeAuthor commuAuthor">{post.author}</p>
                                 <p className="recipeDate commuDate">{post.date}</p>
                             </div>
-                        </div>
+                        </Link>
                         <img src={post.img || "https://via.placeholder.com/50"} alt="" />
                     </li>
                 ))}
@@ -96,7 +117,7 @@ const RecipePostBBS = () => {
     );
 };
 
-const FreePostBBS = () => {
+const FreePostBBS = () => { /* 아직 값 안넣음 */
     const [freePost, setFreePost] = useState([]);
     useEffect(()=>{
         const allFreePost = [
@@ -133,6 +154,5 @@ const FreePostBBS = () => {
         </>
     );
 }
-
-
+ 
 export default Community

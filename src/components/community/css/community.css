@@ -60,6 +60,9 @@
     height: 100%;
     border: none;
 }
+.commuForm > input::placeholder{
+    font-size: 12px;
+}
 .commuForm > button{
    /*  width: 18%;
     height: 100%; */

@@ -1,0 +1,160 @@
+@import url('./community.css');
+.detailSection{
+    position: relative;
+}
+.detailHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.detailHeader > a {
+    position: absolute;
+    left: 15px;
+}
+.detailHeader > h4{
+    font-size: 12px;
+}
+
+.detailContainer{
+    width: 100%;
+    height: 83%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.detailContainer > .detailTitle{
+    font-size: 17px;
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 8px;
+    width: 100%;
+}
+.detailContainer > p{
+    font-size: 10px;
+    color: #646161;
+    padding: 5px 8px 10px 0;
+}
+.detailContainer > .detailContent{
+    width: 100%;
+    font-size: 12px;
+}
+
+.commentBox{
+    padding: 0 20px;
+    width: 100%;
+    border-top: 1px solid #d8d8d8;
+    height: 8%;
+    display: flex; 
+    align-items: center;
+    gap: 5px;
+    z-index: 99;
+    border-radius: 5px;
+}
+.material-symbols-outlined{
+    font-size: 16px;
+    line-height: 16px;
+}
+.commentTitle{
+    font-weight: 500;
+    font-size: 13px;
+}
+
+/* modal 창 */
+.bg{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+.modalContent{
+    background: #f0f0f0;
+    border-radius: 8px;
+    z-index: 999999;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px 30px;
+}
+.modalContent > .commentHeader{
+    padding: 0  0 8px 10px;
+    width: 100%;
+    border-bottom: 1px solid #d8d8d8;
+    height: 8%;
+    display: flex;
+    justify-content: space-between;
+} 
+.commentHeader > div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.closeModalBtn{
+    font-size: 18px;
+    width: 20px;
+}
+
+.commentLists{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 6px 0 ;
+}
+.commentLists > li{
+    border-bottom: 1px solid #dadada;
+    width: 95%;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    padding: 10px 5px ;
+}
+.commentLists > li:nth-last-of-type(1){
+    border-bottom: none;
+}
+.commentLists > li > div{
+    width: 35%;
+   /*  border-right: 1px solid #dadada; */
+}
+.commentLists > li > div > .commentAuthor{
+    font-size: 12px;
+    font-weight: bold;
+}
+.commentLists > li > div > .commentDate{
+    font-size: 10px;
+    font-weight: lighter;
+    color: #646161;
+}
+.commentLists > li > p{
+    font-size: 14px;
+}
+
+.modalContent > .commentForm{
+    padding: 3px 8px;
+    width: 100%;
+    height: 8%;
+    background: #ffffff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modalContent > .commentForm > input{
+    width: 88%;
+    height: 100%;
+    border: none;
+}
+.modalContent > .commentForm > button{
+    width: 12%;
+    height: 100%;
+    display:flex;
+    justify-content: center;
+}
+.modalContent > .commentForm > button > span{
+    
+}
