@@ -1,0 +1,159 @@
+#screen {
+  height: 79%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  width: 90%;
+}
+
+#profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: -15px;
+}
+
+#profile_img {
+  height: 80px;
+  width: 80px;
+  border-radius: 25px;
+  margin-bottom: 10px;
+}
+
+#nickname {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+#id {
+  font-size: 13;
+  opacity: 0.6;
+  margin-bottom: 0px;
+}
+
+#userInfo-container {
+  background-color: #f8fffd;
+  width: 100vw;
+
+  padding: 13px 0;
+  border-top: #5cc1a0 2.5px solid;
+}
+
+#userInfo-container span {
+  background-color: #f8fffd;
+  color: #666666;
+  font-size: 15px;
+}
+
+#user_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+  position: relative;
+  left: 0px;
+  background-color: #f8fffd;
+}
+
+#dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.userInfo_column {
+  display: flex;
+  align-items: center;
+  background-color: #f8fffd;
+  margin-bottom: 5px;
+}
+
+.userInfo_column:last-child {
+  position: relative;
+  right: -15px;
+}
+
+#intake-container {
+  background-color: #f8fffd;
+  margin-top: 30px;
+  padding: 5px;
+  border-radius: 15px;
+  border: 0.5px solid rgba(183, 218, 194, 0.5);
+}
+
+#intake-header {
+  font-size: 14px;
+  font-weight: 550;
+  opacity: 0.8;
+  border-bottom: #5cc1a0 2px solid;
+  width: 80%;
+  padding: 5px;
+  margin: 7px 0;
+  margin-left: 10px;
+  background-color: #f8fffd;
+}
+
+#intake_ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fffd;
+}
+
+.intake-line {
+  display: flex;
+  align-items: center;
+  background-color: #f8fffd;
+  margin-bottom: 5px;
+}
+
+.intakeContent {
+  margin: 5px 20px;
+  display: flex;
+  background-color: #f8fffd;
+}
+
+.intakeContent p {
+  font-size: 12px;
+  font-weight: 500;
+  margin-right: 5px;
+  background-color: #f8fffd;
+}
+#btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#logoutBtn {
+  border: none;
+  width: 45%;
+  height: 38px;
+  background-color: #3f645c;
+  color: white;
+  font-size: 13px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.one {
+  background-color: #587dbd;
+}
+
+.two {
+  background-color: #58bd91;
+}
+
+.three {
+  background-color: #68ccd3;
+}
+
+.four {
+  background-color: #8af4a1;
+}

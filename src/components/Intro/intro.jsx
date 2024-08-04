@@ -8,7 +8,7 @@ const IntroPage = () => {
   const [ID, setID] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const baseURL = `http://rollforward.xyz:3000/api/login/`;
+  const baseURL = `http://127.0.0.1:8000/api/login/`;
   const getId = (e) => {
     setID(e.target.value);
   };
@@ -27,7 +27,7 @@ const IntroPage = () => {
     } else {
       try {
         const response = await fetch(baseURL, {
-          method: "post",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -37,8 +37,10 @@ const IntroPage = () => {
         if (!response.ok) {
           if (response.status === 401) {
             alert("아이디 또는 패스워드가 틀렸습니다.");
+            return;
           } else {
             alert("서버에서 오류가 발생했습니다.");
+            return;
           }
         }
 
@@ -49,7 +51,7 @@ const IntroPage = () => {
         navigate("/home");
       } catch (error) {
         console.error("Error occurred during login:", error);
-        alert("Error occurred" + error.message);
+        alert("Error occurred " + error.message);
       }
     }
   };
@@ -90,9 +92,7 @@ const IntroPage = () => {
         </button>
 
         <button className="signupBtn">
-          <Link to="/signup1">
-            화원가입
-          </Link>
+          <Link to="/signup1">화원가입</Link>
         </button>
       </form>
     </section>

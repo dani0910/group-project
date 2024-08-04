@@ -19,6 +19,7 @@ const SignUpPage1 = () => {
       username: ID,
       password: passW,
       email: email,
+      name: Nname,
     };
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,}$/;
@@ -33,7 +34,8 @@ const SignUpPage1 = () => {
       );
       return;
     } else {
-      try {
+      navigate("/signup2", { state: { savedSignup } });
+      /*try {
         const response = await fetch(baseURL, {
           method: "post",
           headers: {
@@ -45,8 +47,10 @@ const SignUpPage1 = () => {
         if (!response.ok) {
           if (response.status === 400) {
             alert("이미 존재하는 ID입니다");
+            return;
           } else {
             alert("서버에서 오류가 발생했습니다.");
+            return;
           }
         }
 
@@ -56,7 +60,7 @@ const SignUpPage1 = () => {
       } catch (error) {
         console.error("Error occurred during signup:", error);
         alert("Error occurred" + error.message);
-      }
+      } */
     }
   };
 
