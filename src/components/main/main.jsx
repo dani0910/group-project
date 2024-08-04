@@ -244,27 +244,36 @@ const MainPageContent = ({
       <section id="analysisSection">
         <h3 className="h3Txt">현재 섭취량 / 하루 권장 섭취량</h3>
         <ul className="detailBox">
-          {nutrition.map((item, i) => {
-            return (
-              <li className={`${item.value}Content`}>
-                <p className={`${item.value}Txt itemTxt`}>{item.text}</p>
-                <p className={`${item.value}Data`}>
-                  {deleteFlag
-                    ? 0
-                    : savedMeals.daily?.[`total_${item.value}`] || 0}
-                  / {item.recommended} {item.unit} {/*리 부분이 문제인듯 */}
-                </p>
-              </li>
-            );
-          })}
-          {/* <li className="kcalContent">
+          <li className="kcalContent">
             <span></span>
             <p className="kcalTxt">칼로리</p>
             <p className="kcalData">
               {deleteFlag ? 0 : savedMeals.daily?.total_calories || 0} /{" "}
               {re_cal} kcal
             </p>
-          </li> */}
+          </li>
+          <li className="carbohydrateContent">
+            <span></span>
+            <p className="carbohydrateTxt">탄수화물</p>
+            <p className="carbohydrateData">
+              {deleteFlag ? 0 : savedMeals.daily?.total_carbs || 0} /{re_carb} g{" "}
+            </p>
+          </li>
+          <li className="proteinContent">
+            <span></span>
+            <p className="proteinTxt">단백질</p>
+            <p className="proteinData">
+              {deleteFlag ? 0 : savedMeals.daily?.total_protein || 0} /{" "}
+              {re_prot} g
+            </p>
+          </li>
+          <li className="lipidContent">
+            <span></span>
+            <p className="lipidTxt">지방</p>
+            <p className="lipidData">
+              {deleteFlag ? 0 : savedMeals.daily?.total_fat || 0} / {re_fat} g
+            </p>
+          </li>
         </ul>
       </section>
       <section id="recommendationSection" onClick={onRecomend}>

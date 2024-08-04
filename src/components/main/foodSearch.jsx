@@ -28,8 +28,9 @@ const FoodSearch = () => {
   const [foods, setfoods] = useState([]);
   const locaion = useLocation();
   const time = locaion.state?.time || "";
+  const [foodinfo, setFoodinfo] = useState({});
   const goBack = () => {
-    navigate("/home/food_type_select");
+    navigate("/home");
   };
   const onsubmit = (e) => {
     e.preventDefault();
@@ -90,7 +91,13 @@ const FoodSearch = () => {
           </div>
           <>
             {activeTab == "allPage" /* 버튼 눌렀을 때 해당 페이지 뜨도록 */ ? (
-              <AllBtnSection foods={foods} time={time} navigate={navigate} />
+              <AllBtnSection
+                foods={foods}
+                time={time}
+                navigate={navigate}
+                foodinfo={foodinfo}
+                setFoodinfo={setFoodinfo}
+              />
             ) : activeTab == "bookmark" ? (
               <BookmarkSection />
             ) : (
@@ -104,7 +111,7 @@ const FoodSearch = () => {
   );
 };
 
-const AllBtnSection = ({ foods, time, navigate }) => {
+const AllBtnSection = ({ foods, time, foodinfo, setFoodinfo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => setIsModalOpen(true);
@@ -142,6 +149,7 @@ const AllBtnSection = ({ foods, time, navigate }) => {
                     fat: item.NUTR_CONT4,
                   };
                   console.log(temp_foodinfo);
+                  setFoodinfo(temp_foodinfo);
                   //   navigate("/home/food_ingredient", {
                   //   state: { foodinfo: temp_foodinfo },
                   // });
@@ -156,7 +164,11 @@ const AllBtnSection = ({ foods, time, navigate }) => {
       {isModalOpen && (
         <>
           <div className="bg" onClick={handleModalClose}></div>
-          <IngredientModal onClose={handleModalClose} />
+          <IngredientModal
+            onClose={handleModalClose}
+            foodinfo={foodinfo}
+            time={time}
+          />
         </>
       )}
     </form>

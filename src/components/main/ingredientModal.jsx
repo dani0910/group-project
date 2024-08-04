@@ -4,19 +4,12 @@ import "./css/ingredientModal.css";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const IngredientModal = ({onClose}) => {
+const IngredientModal = ({ onClose, foodinfo, time }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  let foodinfo = [];
-  try {
-    console.log(location.state?.foodinfo || []);
-    foodinfo = location.state?.foodinfo || [];
-  } catch (e) {
-    console.error("Failed to parse foodinfo:", e);
-    foodinfo = [];
-  }
+
   const foodName = foodinfo.name;
-  const time = foodinfo.time;
+
   const cal = parseFloat(foodinfo.calories);
   const protein = parseFloat(foodinfo.protein);
   const carb = parseFloat(foodinfo.carb);
@@ -26,10 +19,12 @@ const IngredientModal = ({onClose}) => {
   const [saveMealsFlag, setSaveMealsFlag] = useState(false);
   const baseURL = "http://127.0.0.1:8000/api/food-intake/";
   const token = localStorage.getItem("token");
-  const plus = () => {
+  const plus = (e) => {
+    e.preventDefault();
     setnumber((current) => Math.min(current + 10, 1500));
   };
-  const minus = () => {
+  const minus = (e) => {
+    e.preventDefault();
     setnumber((current) => Math.max(current - 10, 0));
   };
 
