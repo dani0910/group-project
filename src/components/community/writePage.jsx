@@ -16,7 +16,7 @@ const WritePage = () => {
         const newPost  = {
             title, 
             content, 
-            author: '작성자',
+            author: '작성자', //로그인 된 닉네임 뜨도록 변경해야함
             date: new Date().toLocaleDateString('ko-KR'), 
             img: ' '
         }
@@ -51,7 +51,7 @@ const WritePage = () => {
         <>
             <Header/>
             <main className="writeMain main communityMain">
-                <form onSubmit={handleSubmit}className="writeSection commuSection">
+                <form onSubmit={handleSubmit} className="writeSection commuSection">
                     <div className="writeHeader commuHeader">
                         <Link to='/community'>&lt;</Link>
                         <select 

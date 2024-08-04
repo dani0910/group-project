@@ -1,0 +1,17 @@
+@import url("../../community/css/community.css");
+
+.calenderMain{
+    display: flex;
+    align-items: center;
+}
+.calenderSection{
+    width: 80%;
+    height: 90%;
+    margin: 0 auto;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

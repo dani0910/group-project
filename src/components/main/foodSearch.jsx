@@ -3,6 +3,7 @@ import { Header, MenuBar } from "./main";
 import "./css/foodSearch.css";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import IngredientModal from "./ingredientModal";
 
 const FoodSearch = () => {
   const [activeTab, setActiveTab] = useState('allPage');
@@ -90,6 +91,11 @@ const FoodSearch = () => {
 };
 
 const AllBtnSection = ({foods,time,navigate}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
+
   return(
     <form>
       <ul
@@ -122,14 +128,21 @@ const AllBtnSection = ({foods,time,navigate}) => {
                   fat: item.NUTR_CONT4,
                 };
                 console.log(temp_foodinfo);
-                  navigate("/home/food_ingredient", {
-                  state: { foodinfo: temp_foodinfo },
-                });
+                //   navigate("/home/food_ingredient", {
+                //   state: { foodinfo: temp_foodinfo },
+                // });
+                handleModalOpen(temp_foodinfo);
               }}
             >추가</button>
           </li>
         ))}
       </ul>
+      {isModalOpen && (
+        <>
+          <div className="bg" onClick={handleModalClose}></div>
+          <IngredientModal onClose={handleModalClose}/>
+        </>
+      )}
     </form>
   )
 }

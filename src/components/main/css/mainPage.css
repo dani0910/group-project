@@ -7,6 +7,7 @@
     justify-content: center;
     align-items: center;
     gap: 3%;
+    position: relative;
 }
 .mainContainer > section {
     width: 80%;

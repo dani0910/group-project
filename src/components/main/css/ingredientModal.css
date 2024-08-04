@@ -3,15 +3,18 @@
 #ingredientModalSection{
     width: 80vw;
     height: 60%;
+    background: #fff;
     border: 1px solid #e7e7e7;
     border-radius: 10px;
     box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
-    margin: 0 auto;
     padding: 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    position: absolute;
+    z-index: 99999;
+    bottom: 0;
 }
 .ingredientTxt{
     font-size: 12px;

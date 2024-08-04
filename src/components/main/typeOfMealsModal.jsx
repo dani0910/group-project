@@ -1,24 +1,10 @@
 import React from "react";
 import { Header, MainPageContent, MenuBar } from "./main";
-import "./css/selectFood.css";
+import "./css/typeOfMealsModal.css";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const SelectFoodType = () => {
-  //css 개판으로 해놔서 수정해야함
-
-  return (
-    <>
-      {/* <Header/>
-        <MainPageContent/>        
-        <MenuBar/> */}
-      <TypeOfMealsModal />
-      <div id="bg"></div>
-    </>
-  );
-};
-
-const TypeOfMealsModal = () => {
+const TypeOfMealsModal = ({onClose}) => {
   const type = [
     {text: '아침', className: 'breakfast'},
     {text: '점심', className: 'lunch'},
@@ -55,12 +41,11 @@ const TypeOfMealsModal = () => {
         })}
         <div className="btnBox">
           <button type="submit" className="selectBtn">선택</button>
-          <button type="button" className="cancelBtn">취소</button>
+          <button type="button" className="cancelBtn" onClick={onClose}>취소</button>
         </div>
       </form>
-      <div id="bg" style={{ display: 'none' }}></div>
     </section>
   );
-};
+}
 
-export default SelectFoodType;
+export default TypeOfMealsModal;

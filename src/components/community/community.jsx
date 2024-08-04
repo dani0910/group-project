@@ -54,7 +54,7 @@ const RecipePostBBS = () => {
         const post = [
             {id: "1", title: '레시피1', content: '내용물1', author: '작성자', date: '7/28', img:''},
             {id: "2", title: '레시피2', content: '내용물2', author: '작성자', date: '7/25', img:''},
-        ]; // 잘뜨나 시험용으로 만든 리스트
+        ]; // 잘뜨는지 시험용으로 만든 리스트
         setRecipePost(post);
         if (newPost) {
             setRecipePost(prevPosts => [newPost , ...prevPosts]); 
@@ -83,7 +83,7 @@ const RecipePostBBS = () => {
                     className="searchInput" 
                     placeholder="레시피 검색" 
                     value={searchQuery}
-                    onChange={handleSearchChange} // 검색어 입력 처리
+                    onChange={handleSearchChange}
                 />
                 <button type="submit" className="searchBtn">
                     <span className="material-symbols-outlined">search</span>
@@ -96,6 +96,7 @@ const RecipePostBBS = () => {
                             to={`/community/detail/${i}`}
                             state={{post}}
                             className="txtBox"
+                            onChange={()=>console.log(post)}
                         >
                             <h4 className="recipeTitle commuTitle">{post.title}</h4>
                             <p className="recipeContent commuContent">{post.content}</p>
@@ -117,7 +118,7 @@ const RecipePostBBS = () => {
     );
 };
 
-const FreePostBBS = () => { /* 아직 값 안넣음 */
+const FreePostBBS = () => { /* 아직 값 안넣음 자유 게시판은 형태만 잡아뒀고 어차피 레시피랑 코드 똑같음 나중에 코드 한번에 합치려고 냅둠*/
     const [freePost, setFreePost] = useState([]);
     useEffect(()=>{
         const allFreePost = [

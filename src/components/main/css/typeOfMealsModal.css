@@ -1,20 +1,17 @@
 /* @import url(./mainPage.css); */
 
-/* #bg{
-    width: 100vw !important; 
-    height: 100vh !important;
-    position: absolute !important;
-    background: #000 !important;
-} */
-
 #selectModal{
     width: 80%;
-    height: 50%;
+    height: 53%;
+    background: #fff;
     border: 1px solid #e7e7e7;
     border-radius: 10px;
     box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
-    margin: 0 auto;
     padding: 18px;
+    position: absolute;
+    bottom: 13%;
+    left: 10%;
+    z-index: 99999;
 }
 
 #selectModal > h3{

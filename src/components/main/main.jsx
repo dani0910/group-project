@@ -1,7 +1,9 @@
 import React from "react";
 import "./css/mainPage.css";
+import  TypeOfMealsModal  from "./typeOfMealsModal";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link, NavLink } from "react-router-dom";
+
 const MainPage = () => {
   const requiredIntake = localStorage.getItem("required_intake");
   const [requiredCarbs, setRequiredCarbs] = useState(
@@ -64,6 +66,11 @@ const MainPage = () => {
     }
   }, [requiredCarbs, requiredProtein, requiredFat]);
   
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
+
   return (
     <>
       <Header />
@@ -73,8 +80,15 @@ const MainPage = () => {
         re_prot={requiredProtein}
         re_fat={requiredFat}
         totalInfo={totalInfo}
+        onOpen = {handleModalOpen}
       />
       <MenuBar />
+      {isModalOpen && (
+        <>
+        <div className="bg" onClick={handleModalClose}></div>
+        <TypeOfMealsModal onClose={handleModalClose}/>
+        </>
+      )}
     </>
   );
 };
@@ -90,7 +104,7 @@ const Header = () => {
   );
 };
 
-const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
+const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo, onOpen}) => {
   const foodType = [
     {text: '아침', value: 'breakfast'},
     {text: '점심', value: 'lunch'},
@@ -104,7 +118,6 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
     {text: '지방', value: 'fat', unit: 'g', recommended: "re_fat"}
   ]
   const recommendedValues = {re_cal,re_carb,re_prot,re_fat};
-  console.log(recommendedValues[nutrition[0].recommended])
 
   return (
     <main className="main mainContainer">
@@ -113,10 +126,10 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
         <div className="innerBox">
           <div className="inputBox">
             <p>식단 입력</p>
-            <Link to="/home/food_type_select" className="inputBtnContent">
+            <div className="inputBtnContent" onClick={onOpen}>
               <p className="inputTxt">입력하러 가기 &gt;</p>
               <span className="inputIcon"></span>
-            </Link>
+            </div>
           </div>
           <div className="caloriesBox">
             <div>
@@ -150,7 +163,6 @@ const MainPageContent = ({ re_cal, re_carb, re_prot, re_fat, totalInfo }) => {
               </li>
             )
           })}
-          {/* <p>자세히 보기 &gt;</p> */}
         </ul>
       </section>
       <section id="recommendationSection">

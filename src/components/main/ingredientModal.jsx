@@ -4,7 +4,7 @@ import "./css/ingredientModal.css";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const IngredientModal = () => {
+const IngredientModal = ({onClose}) => {
   const location = useLocation();
   const navigate = useNavigate();
   let foodinfo = [];
