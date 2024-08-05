@@ -15,21 +15,21 @@ const Recommendation = () => {
   const re_fat = location.state.re_fat;
 
   const required_info = {
-    total_calories: dailyMeals.total_calories,
-    total_carbs: dailyMeals.total_carbs,
-    total_fat: dailyMeals.total_fat,
-    total_protein: dailyMeals.total_protein,
-    recommended_carbs: re_carb,
-    recommended_calories: re_cal,
-    recommended_protein: re_prot,
-    recommended_fat: re_fat,
+    total_calories: parseFloat(dailyMeals.total_calories),
+    total_carbs: parseFloat(dailyMeals.total_carbs),
+    total_fat: parseFloat(dailyMeals.total_fat),
+    total_protein: parseFloat(dailyMeals.total_protein),
+    recommended_carbs: parseFloat(re_carb),
+    recommended_calories: parseFloat(re_cal),
+    recommended_protein: parseFloat(re_prot),
+    recommended_fat: parseFloat(re_fat),
   };
 
   const [response, setResponse] = useState({});
   console.log("navigated : ", required_info);
 
   const onRecommend = async () => {
-    const baseURL = "http://127.0.0.1:8000/api/nutrition/recommend/";
+    const baseURL = "http://rollforward.xyz:3001/api/nutrition/recommend/";
     try {
       const response = await fetch(baseURL, {
         method: "POST",
@@ -40,7 +40,7 @@ const Recommendation = () => {
       });
 
       if (!response.ok) {
-        alert("서버에서 오류가 발생했습니다.");
+        alert(`서버에서 오류가 발생했습니다. 상태 코드: ${response.status}`);
         return;
       }
 
@@ -61,7 +61,7 @@ const Recommendation = () => {
     console.log(response.recommendations);
   }, [response]);
 
-  const recommendations = response.recommendations;
+  const recommendations = response.recommendations || [];
 
   const onDeficit = () => {
     if (response.deficit === "calories") {
@@ -105,16 +105,13 @@ const Recommendation = () => {
           <div className="recFoodContainer">
             <h4>추천 식단</h4>
             <Slider {...settings}>
-              {" "}
-              {/*}
-              {" "}  식단추천 api 배포 되기 전까지 주석처리 해놓을게염 ^-^
               {recommendations.map((item) => (
                 <div key={item.id} className="slideRecItem">
                   <img src={`/foodImg/${item.name}.jpg`} alt={item.name} />
                   <p>{item.name}</p>
                   <a href="#">해당 식단 레시피 보러 가기 &gt;</a>
                 </div>
-              ))}  */}
+              ))}
             </Slider>
           </div>
         </section>
