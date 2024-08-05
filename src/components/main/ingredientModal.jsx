@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const IngredientModal = ({ onClose, foodinfo, time }) => {
-
   const [number, setnumber] = useState(100);
   const [meal, setMeal] = useState({});
   const [saveMealsFlag, setSaveMealsFlag] = useState(false);
@@ -19,7 +18,7 @@ const IngredientModal = ({ onClose, foodinfo, time }) => {
   const protein = parseFloat(foodinfo.protein);
   const carb = parseFloat(foodinfo.carb);
   const fat = parseFloat(foodinfo.fat);
-  
+
   const plus = (e) => {
     e.preventDefault();
     setnumber((current) => Math.min(current + 10, 1500));
@@ -37,7 +36,7 @@ const IngredientModal = ({ onClose, foodinfo, time }) => {
 
     return `${year}-${month}-${day}`;
   };
-  
+
   useEffect(() => {
     const newMeal = {
       new_calories: ((parseFloat(cal) * number) / 100).toFixed(1),

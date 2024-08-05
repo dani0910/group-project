@@ -11,6 +11,7 @@ import Recommendation from "./components/main/recommendation";
 
 import WritePage from "./components/community/writePage";
 import PostDetail from "./components/community/detailPost";
+import Editpost from "./components/community/edit";
 import Calender from "./components/calender/calender";
 
 import Community from "./components/community/community";
@@ -42,6 +43,7 @@ function App() {
           <Route path="/community/write" element={<WritePage />}></Route>
           <Route path="/community/detail/:i" element={<PostDetail />}></Route>
           <Route path="/calender" element={<Calender />}></Route>
+          <Route path="/community/edit" element={<Editpost />}></Route>
 
           <Route path="/mypage" element={<Mypage profile={profile} />}></Route>
         </Routes>

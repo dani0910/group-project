@@ -137,7 +137,6 @@ const MainPageContent = ({
   savedMeals,
   onOpen,
 }) => {
-  
   const foodType = [
     { text: "아침", value: "breakfast" },
     { text: "점심", value: "lunch" },
@@ -147,12 +146,12 @@ const MainPageContent = ({
 
   const [deleteFlag, setDeleteFlag] = useState(false);
   const nutrition = [
-    {text: '칼로리', value: 'calories', unit: 'kal', recommended: "re_cal"},
-    {text: '탄수화물', value: 'carbs', unit: 'g', recommended: "re_carb"},
-    {text: '단백질', value: 'protein', unit: 'g', recommended: "re_prot"},
-    {text: '지방', value: 'fat', unit: 'g', recommended: "re_fat"}
-  ]
-  const recommendedValues = {re_cal,re_carb,re_prot,re_fat};
+    { text: "칼로리", value: "calories", unit: "kal", recommended: "re_cal" },
+    { text: "탄수화물", value: "carbs", unit: "g", recommended: "re_carb" },
+    { text: "단백질", value: "protein", unit: "g", recommended: "re_prot" },
+    { text: "지방", value: "fat", unit: "g", recommended: "re_fat" },
+  ];
+  const recommendedValues = { re_cal, re_carb, re_prot, re_fat };
   const baseURL = "http://127.0.0.1:8000/api/food-intake/";
 
   const ondelete = async (e) => {
@@ -193,7 +192,7 @@ const MainPageContent = ({
   };
 
   // const navigate = useNavigate();
- /*  const onRecomend = () => { 링크로 걸어둠
+  /*  const onRecomend = () => { 링크로 걸어둠
     navigate("/home/food_recommendation", {
       state: {
         dailyMeals: savedMeals.daily,
@@ -247,28 +246,30 @@ const MainPageContent = ({
       <section id="analysisSection">
         <h3 className="h3Txt">현재 섭취량 / 하루 권장 섭취량</h3>
         <ul className="detailBox">
-          {nutrition.map((item,i)=>{
-            return(
+          {nutrition.map((item, i) => {
+            return (
               <li className={`${item.value}Content`}>
                 <p className={`${item.value}Txt itemTxt`}>{item.text}</p>
                 <p className={`${item.value}Data`}>
-                  {deleteFlag ? 0 : (savedMeals.daily?.[`total_${item.value}`] || 0)} /
-                  {recommendedValues[item.recommended]} {item.unit}
+                  {deleteFlag
+                    ? 0
+                    : savedMeals.daily?.[`total_${item.value}`] || 0}{" "}
+                  /{recommendedValues[item.recommended]} {item.unit}
                 </p>
               </li>
-            )
+            );
           })}
         </ul>
       </section>
       <section id="recommendationSection">
-        <Link 
-          to='/home/food_recommendation'
-          state={{ 
+        <Link
+          to="/home/food_recommendation"
+          state={{
             daily: savedMeals.daily,
             re_cal: re_cal,
             re_carb: re_carb,
             re_fat: re_fat,
-            re_prot: re_prot 
+            re_prot: re_prot,
           }}
         >
           <h3 className="h3Txt">나에게 맞는 식단 추천 받으러 가기</h3>
