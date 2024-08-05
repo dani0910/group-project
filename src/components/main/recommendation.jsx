@@ -110,7 +110,7 @@ const Recommendation = () => {
     slidesToShow: 1, //한번에 표시할 슬라이드 개수
     slidesToScroll: 1, //옆으로 스크롤할 때 보여줄 슬라이드 개수
     autoplay: true,
-    autoplaySpeed: 2500, 
+    autoplaySpeed: 2500,
   };
 
   const navigate = useNavigate();
@@ -139,12 +139,15 @@ const Recommendation = () => {
           <div className="recFoodContainer">
             <h4 className="h4Txt">추천 식단</h4>
             <Slider {...settings}>
-            {recommendations.map((item) => (
-                <div key={item.id} className="slideRecItem">
-                  <img src={`/foodImg/${item.name}.jpg`} alt={item.name} />
-                  <p>{item.name}</p>
-                  <a href="#">해당 식단 레시피 보러 가기 &gt;</a>
-                </div>
+              {recommendations.map((item) => (
+                <>
+                  <img
+                    src={`/foodImg/${item.name}.jpg`}
+                    alt={item.name}
+                    className="imgSlider"
+                  />
+                  <p className="txtSlider">{item.name}</p>
+                </>
               ))}
             </Slider>
             <Link to="/community">레시피 검색하러 가기 &gt;</Link>
@@ -157,4 +160,3 @@ const Recommendation = () => {
 };
 
 export default Recommendation;
-
