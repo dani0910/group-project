@@ -35,7 +35,7 @@ const SignUpPage1 = () => {
       return;
     } else {
       navigate("/signup2", { state: { savedSignup } });
-      /*try {
+      try {
         const response = await fetch(baseURL, {
           method: "post",
           headers: {
@@ -60,7 +60,7 @@ const SignUpPage1 = () => {
       } catch (error) {
         console.error("Error occurred during signup:", error);
         alert("Error occurred" + error.message);
-      } */
+      }
     }
   };
 

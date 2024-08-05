@@ -6,11 +6,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-/* 아직 api 연동 안되서 코드만 미리 작성해놓고 주석 처리 해놨어영 */
-
 const Recommendation = () => {
   const location = useLocation();
-  const dailyMeals = location.state.dailyMeals;
+  const dailyMeals = location.state.daily;
   const re_cal = location.state.re_cal;
   const re_carb = location.state.re_carb;
   const re_prot = location.state.re_prot;
@@ -26,11 +24,12 @@ const Recommendation = () => {
     recommended_protein: re_prot,
     recommended_fat: re_fat,
   };
+
   const [response, setResponse] = useState({});
   console.log("navigated : ", required_info);
-  /*
-  const onRecommend = async()=> {
-    const baseURL = 'http://127.0.0.1:8000/api/nutrition/';
+
+  const onRecommend = async () => {
+    const baseURL = "http://127.0.0.1:8000/api/nutrition/recommend/";
     try {
       const response = await fetch(baseURL, {
         method: "POST",
@@ -48,36 +47,33 @@ const Recommendation = () => {
       const data = await response.json();
       console.log("response received", data);
       setResponse(data);
-      
     } catch (error) {
-      console.error("Error occurred during login:", error);
+      console.error("Error occurred during error:", error);
       alert("Error occurred " + error.message);
     }
+  };
 
-  }
+  useEffect(() => {
+    onRecommend();
+  }, []);
 
-  const deficit = response.deficit;
+  useEffect(() => {
+    console.log(response.recommendations);
+  }, [response]);
+
   const recommendations = response.recommendations;
 
-  const onDeficit= ()=>{
-    if(deficit===calories){
-      return(
-        `칼로리 과잉 (${dailyMeals.total_calories} / ${re_cal})`
-      );
-    }else if(deficit===carbs){
-      return(
-        `탄수화물 부족 (${dailyMeals.total_carbs} / ${re_carb})`
-      );
-    }else if(deficit===protein){
-      return(
-        `단백질 부족 (${dailyMeals.total_protein} / ${re_prot})`
-      );
-    }else if(deficit===fat){
-      return(
-        `지방 부족 (${dailyMeals.total_fat} / ${re_fat})`
-      );
+  const onDeficit = () => {
+    if (response.deficit === "calories") {
+      return `칼로리 과잉 (${dailyMeals.total_calories} / ${re_cal})`;
+    } else if (response.deficit === "carbs") {
+      return `탄수화물 부족 (${dailyMeals.total_carbs} / ${re_carb})`;
+    } else if (response.deficit === "protein") {
+      return `단백질 부족 (${dailyMeals.total_protein} / ${re_prot})`;
+    } else if (response.deficit === "fat") {
+      return `지방 부족 (${dailyMeals.total_fat} / ${re_fat})`;
     }
-  };  */
+  };
 
   const settings = {
     arrows: true, //양 끝 화살표
@@ -104,20 +100,21 @@ const Recommendation = () => {
         <section className="recommendationSection">
           <div className="nutritionWarningBox">
             <h4>현재 나의 영양 문제</h4>
-            {/*}    <p> {onDeficit()}</p>  */}
+            <p> {onDeficit()}</p>
           </div>
           <div className="recFoodContainer">
             <h4>추천 식단</h4>
             <Slider {...settings}>
               {" "}
               {/*}
-            {recommendations.map((item) => (
+              {" "}  식단추천 api 배포 되기 전까지 주석처리 해놓을게염 ^-^
+              {recommendations.map((item) => (
                 <div key={item.id} className="slideRecItem">
-                    <img src="" alt={item.name} />
-                    <p>{item.name}</p>
-                    <a href="#">해당 식단 레시피 보러 가기 &gt;</a>
+                  <img src={`/foodImg/${item.name}.jpg`} alt={item.name} />
+                  <p>{item.name}</p>
+                  <a href="#">해당 식단 레시피 보러 가기 &gt;</a>
                 </div>
-            ))}  */}
+              ))}  */}
             </Slider>
           </div>
         </section>

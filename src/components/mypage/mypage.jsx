@@ -53,52 +53,76 @@ const Mypage = ({ profile }) => {
   return (
     <>
       <Header />
-      <MainMypage profile={profile} activity={activity()} onConfirm={onConfirm}/>
+      <MainMypage
+        profile={profile}
+        activity={activity()}
+        onConfirm={onConfirm}
+      />
       <MenuBar />
     </>
   );
 };
 
-const MainMypage = ({ profile, activity, onConfirm }) => {
-  
-
+const MainMypage = ({ profile = {}, onConfirm }) => {
+  const { height = 0, weight = 0, activity_level = 0 } = profile;
   const memberInfo = [
-    {text: '키', value: 170, unit: 'cm', className:'height'},
-    {text: '체중', value: 69, unit: 'g', className:'weight'},
-    {text: '활동량', value: 40, unit: '', className:'activity'},
-  ]
+    {
+      text: "키",
+      value: height,
+      unit: "cm",
+      className: "height",
+    },
+    {
+      text: "체중",
+      value: weight,
+      unit: "g",
+      className: "weight",
+    },
+    {
+      text: "활동량",
+      value: activity_level,
+      unit: "",
+      className: "activity",
+    },
+  ];
 
   return (
     <main className="myPageMain main">
       <section className="myPageSection">
         <div className="profileBox">
           <img id="profileImg" src={ProfileImg} alt="Profile" />
-          <p className="nicknameTxt">다니 님</p>
+          <p className="nicknameTxt">{profile.name || "로그인 해주세요"}</p>
         </div>
-        
+
         <div className="accountInfoBox">
           <p className="accountTxt">계정 정보</p>
           <div>
-            <p className="myPageIdTxt">아이디 : dlekdms</p>
-            <p className="emailTxt">이메일 : dlekdms@naver.com</p>
+            <p className="myPageIdTxt">아이디 : {profile.username || ""}</p>
+            <p className="emailTxt">이메일 : {profile.email || ""}</p>
           </div>
         </div>
 
         <div className="memberInfoBox">
           <p className="memberTxt">회원 정보</p>
           <ul>
-            {memberInfo.map((type,i)=>{
-              return(
+            {memberInfo.map((type, i) => {
+              return (
                 <li key={i}>
                   <p className={`${type.className} beforeTxt`}>{type.text}</p>
-                  <div><p>{type.value} {type.unit}</p></div>
+                  <div>
+                    <p>
+                      {type.value} {type.unit}
+                    </p>
+                  </div>
                 </li>
-              )
+              );
             })}
           </ul>
         </div>
         <div className="logoutBtnBox">
-          <button id="logoutBtn" onClick={onConfirm}>로그아웃</button>
+          <button id="logoutBtn" onClick={onConfirm}>
+            로그아웃
+          </button>
         </div>
       </section>
     </main>
