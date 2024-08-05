@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Recommendation = () => {
+  /* 로그인 안했을 때 작동되도록 임시
   const location = useLocation();
   const dailyMeals = location.state.daily;
   const re_cal = location.state.re_cal;
@@ -23,8 +24,18 @@ const Recommendation = () => {
     recommended_calories: parseFloat(re_cal),
     recommended_protein: parseFloat(re_prot),
     recommended_fat: parseFloat(re_fat),
-  };
+  }; */
 
+  const required_info = {
+    total_calories: 1800,
+    total_carbs: 655,
+    total_fat: 456,
+    total_protein: 56,
+    recommended_carbs: 1543,
+    recommended_calories: 453,
+    recommended_protein: 435,
+    recommended_fat: 34535,
+  };
   const [response, setResponse] = useState({});
   console.log("navigated : ", required_info);
 
@@ -63,6 +74,8 @@ const Recommendation = () => {
 
   const recommendations = response.recommendations || [];
 
+  {
+    /*
   const onDeficit = () => {
     if (response.deficit === "calories") {
       return `칼로리 과잉 (${dailyMeals.total_calories} / ${re_cal})`;
@@ -72,6 +85,19 @@ const Recommendation = () => {
       return `단백질 부족 (${dailyMeals.total_protein} / ${re_prot})`;
     } else if (response.deficit === "fat") {
       return `지방 부족 (${dailyMeals.total_fat} / ${re_fat})`;
+    }
+  };
+  */
+  }
+  const onDeficit = () => {
+    if (response.deficit === "calories") {
+      return `칼로리 과잉`;
+    } else if (response.deficit === "carbs") {
+      return `탄수화물 부족 `;
+    } else if (response.deficit === "protein") {
+      return `단백질 부족 `;
+    } else if (response.deficit === "fat") {
+      return `지방 부족`;
     }
   };
 
