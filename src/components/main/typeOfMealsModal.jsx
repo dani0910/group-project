@@ -18,6 +18,7 @@ const TypeOfMealsModal = ({ onClose }) => {
   const goBack = () => {
     navigate("/home");
   };
+  
   const onsubmit = (e) => {
     e.preventDefault();
     console.log(time);

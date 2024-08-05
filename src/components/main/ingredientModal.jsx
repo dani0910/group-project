@@ -5,20 +5,21 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const IngredientModal = ({ onClose, foodinfo, time }) => {
+
+  const [number, setnumber] = useState(100);
+  const [meal, setMeal] = useState({});
+  const [saveMealsFlag, setSaveMealsFlag] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const baseURL = "http://127.0.0.1:8000/api/food-intake/";
 
   const foodName = foodinfo.name;
-
   const cal = parseFloat(foodinfo.calories);
   const protein = parseFloat(foodinfo.protein);
   const carb = parseFloat(foodinfo.carb);
   const fat = parseFloat(foodinfo.fat);
-  const [number, setnumber] = useState(100);
-  const [meal, setMeal] = useState({});
-  const [saveMealsFlag, setSaveMealsFlag] = useState(false);
-  const baseURL = "http://127.0.0.1:8000/api/food-intake/";
-  const token = localStorage.getItem("token");
+  
   const plus = (e) => {
     e.preventDefault();
     setnumber((current) => Math.min(current + 10, 1500));
@@ -36,6 +37,7 @@ const IngredientModal = ({ onClose, foodinfo, time }) => {
 
     return `${year}-${month}-${day}`;
   };
+  
   useEffect(() => {
     const newMeal = {
       new_calories: ((parseFloat(cal) * number) / 100).toFixed(1),

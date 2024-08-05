@@ -27,7 +27,13 @@ const PostDetail = () => {
                         <h4>레시피 게시판</h4>
                     </div>
                     <div className="detailContainer">
-                        <h2 className="detailTitle">{post.title}</h2>
+                        <div>
+                            <h2 className="detailTitle">{post.title}</h2>
+                            <div className="detailPostBtn">
+                                <button className="detailEditBtn detailBtn"><span class="material-symbols-outlined">edit_square</span></button>
+                                <button className="detailDeleteBtn detailBtn"><span class="material-symbols-outlined"> <span class="material-symbols-outlined">delete</span></span></button>
+                            </div>
+                        </div>
                         <p>{post.author} {post.date}</p>
                         <div className="detailContent">
                             {post.content}

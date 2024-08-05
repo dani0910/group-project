@@ -7,12 +7,19 @@ import IngredientModal from "./ingredientModal";
 
 const FoodSearch = () => {
   const [activeTab, setActiveTab] = useState("allPage");
-
+  const [food, setFood] = useState("");
+  const [foods, setfoods] = useState([]);
+  const [foodinfo, setFoodinfo] = useState({});
+  const locaion = useLocation();
+  const navigate = useNavigate();
+  const time = locaion.state?.time || "";
   const base_url =
     "http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1";
   const service_key =
     "F0ujwILUgFVtwYhJG8RKhlh0Zne1fV7drPAZN1CbFqshZ4o%2BfztKpNhGadkKL%2FKCGIaHfw8iPJ7K4%2FU8CgnDBg%3D%3D";
   const url_with_service_key = `${base_url}?ServiceKey=${service_key}&type=json`;
+
+  const getFood = (e) => setFood(e.target.value);
 
   const query_by_food_name = async (food_name) => {
     const url_with_food_name = `${url_with_service_key}&desc_kor=${food_name}`;
@@ -22,16 +29,11 @@ const FoodSearch = () => {
 
     return result_json;
   };
-  const navigate = useNavigate();
-  const [food, setFood] = useState("");
-  const getFood = (e) => setFood(e.target.value);
-  const [foods, setfoods] = useState([]);
-  const locaion = useLocation();
-  const time = locaion.state?.time || "";
-  const [foodinfo, setFoodinfo] = useState({});
+
   const goBack = () => {
     navigate("/home");
   };
+
   const onsubmit = (e) => {
     e.preventDefault();
     query_by_food_name(food).then((data) => {

@@ -1,159 +1,131 @@
-#screen {
-  height: 79%;
+@import url("../main/css/mainDefult.css");
+.myPageMain{
+  display: flex;
+  align-items: center;
+}
+.myPageSection{
+  background-color: #f8fffd;
+  width: 80%;
+  height: 92%;
+  margin: 0 auto;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 2%;
 }
 
-main {
-  width: 90%;
-}
 
-#profile {
+.myPageSection > .profileBox{
+  width: 80%;
+  height: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  top: -15px;
+  justify-content: center;
+  border-bottom: 2px solid #5cc1a0; 
 }
-
-#profile_img {
+#profileImg {
   height: 80px;
   width: 80px;
   border-radius: 25px;
   margin-bottom: 10px;
 }
-
-#nickname {
-  font-size: 17px;
-  font-weight: 500;
+.nicknameTxt{
+  font-weight: bold;
 }
 
-#id {
-  font-size: 13;
-  opacity: 0.6;
-  margin-bottom: 0px;
+
+.myPageSection > .accountInfoBox{
+  width: 70%;
+  height: 15%;
 }
-
-#userInfo-container {
-  background-color: #f8fffd;
-  width: 100vw;
-
-  padding: 13px 0;
-  border-top: #5cc1a0 2.5px solid;
+.accountTxt , .memberTxt{
+  font-size: 11px;
+  color: #666;
+  width: auto;
+  padding: 0 0 3px 5px;
 }
-
-#userInfo-container span {
-  background-color: #f8fffd;
-  color: #666666;
-  font-size: 15px;
-}
-
-#user_info {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 80%;
-  position: relative;
-  left: 0px;
-  background-color: #f8fffd;
-}
-
-#dot {
-  height: 12px;
-  width: 12px;
-  border-radius: 5px;
-  margin-right: 20px;
-}
-
-.userInfo_column {
-  display: flex;
-  align-items: center;
-  background-color: #f8fffd;
-  margin-bottom: 5px;
-}
-
-.userInfo_column:last-child {
-  position: relative;
-  right: -15px;
-}
-
-#intake-container {
-  background-color: #f8fffd;
-  margin-top: 30px;
-  padding: 5px;
-  border-radius: 15px;
-  border: 0.5px solid rgba(183, 218, 194, 0.5);
-}
-
-#intake-header {
-  font-size: 14px;
-  font-weight: 550;
-  opacity: 0.8;
-  border-bottom: #5cc1a0 2px solid;
-  width: 80%;
-  padding: 5px;
-  margin: 7px 0;
-  margin-left: 10px;
-  background-color: #f8fffd;
-}
-
-#intake_ul {
+.accountInfoBox > div{
+  height: 80%;
+  background: #ffffff;
+  border: 1px solid #f6f6f6;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   justify-content: center;
-  background-color: #f8fffd;
 }
-
-.intake-line {
+.accountInfoBox > div > p{
+  width: auto;
+  font-size: 13px;
+}
+.myPageIdTxt{
+  border:none;
+}
+.myPageSection > .memberInfoBox{
+  width: 70%;
+  height: 30%;
+}
+.memberInfoBox > ul{
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  width: 100%;
+  height: 80%;
   display: flex;
-  align-items: center;
-  background-color: #f8fffd;
-  margin-bottom: 5px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
 }
-
-.intakeContent {
-  margin: 5px 20px;
+.memberInfoBox > ul > li {
   display: flex;
-  background-color: #f8fffd;
+/*   gap: 50px; */
+  font-size: 14px;
+}
+.memberInfoBox > ul > li > p{
+  width: 40%;
+  margin-left: 8%;
+}
+.memberInfoBox > ul > li > div{
+  width: 50%;
+  border-left: 1px solid #dddddd;
+  padding-left: 30px;
 }
 
-.intakeContent p {
-  font-size: 12px;
-  font-weight: 500;
-  margin-right: 5px;
-  background-color: #f8fffd;
-}
-#btn-container {
+.logoutBtnBox{
+  height: 10%;
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
-
 #logoutBtn {
   border: none;
   width: 45%;
   height: 38px;
-  background-color: #3f645c;
+  background-color: #3a958a;
   color: white;
   font-size: 13px;
   border-radius: 10px;
-  margin-top: 20px;
 }
 
-.one {
+.beforeTxt::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin: 0 10px; 
   background-color: #587dbd;
 }
-
-.two {
-  background-color: #58bd91;
-}
-
-.three {
+.weight::before {
   background-color: #68ccd3;
 }
-
-.four {
+.activity::before {
   background-color: #8af4a1;
 }

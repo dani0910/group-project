@@ -23,12 +23,31 @@
     flex-direction: column;
     align-items: flex-end;
 }
-.detailContainer > .detailTitle{
-    font-size: 17px;
-    border-bottom: 1px solid #d8d8d8;
+.detailContainer > div:nth-of-type(1){
+    border-bottom: 2px solid #5cc1a0;
     padding-bottom: 8px;
     width: 100%;
+    position: relative;
 }
+.detailContainer > div:nth-of-type(1)> .detailTitle{
+    font-size: 17px;
+}
+
+.detailPostBtn{
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 15%;
+}
+.detailPostBtn >  button{
+    width: 20px;
+    height: 20px;  /* 여기까지 css */
+}
+.detailBtn{
+    font-size: 20px;
+}
+
 .detailContainer > p{
     font-size: 10px;
     color: #646161;

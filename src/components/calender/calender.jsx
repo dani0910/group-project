@@ -8,7 +8,7 @@ const Calender = () =>{
         <>
             <Header/>
             <main className="main calenderMain">
-                <section className="calenderSection">
+                <section className="calenderSection centerSection">
                     <p>준비중..</p>
                 </section>
             </main>

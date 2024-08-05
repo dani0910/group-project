@@ -37,8 +37,8 @@ function App() {
             path="/home/food_recommendation"
             element={<Recommendation />}
           ></Route>
-          <Route path="/community" element={<Community />}></Route>
 
+          <Route path="/community" element={<Community />}></Route>
           <Route path="/community/write" element={<WritePage />}></Route>
           <Route path="/community/detail/:i" element={<PostDetail />}></Route>
           <Route path="/calender" element={<Calender />}></Route>

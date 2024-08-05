@@ -7,18 +7,9 @@ import ProfileImg from "./profile.jpg";
 
 const Mypage = ({ profile }) => {
   console.log("profile in mypage :", profile);
-  return (
-    <>
-      <Header />
-      <MainMypage profile={profile} />
-      <MenuBar />
-    </>
-  );
-};
-
-const MainMypage = ({ profile }) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+
   const activity = () => {
     if (profile.activity_level === 25) {
       return "가벼운 활동";
@@ -30,13 +21,6 @@ const MainMypage = ({ profile }) => {
       return "아주 강한 활동";
     }
   };
-
-  const requiredIntake = profile.required_intake || 0;
-  const requiredCarbs =
-    ((parseFloat(requiredIntake) * 0.5) / 4).toFixed(1) || 0;
-  const requiredProtein =
-    ((parseFloat(requiredIntake) * 0.15) / 4).toFixed(1) || 0;
-  const requiredFat = ((parseFloat(requiredIntake) * 0.22) / 9).toFixed(1) || 0;
 
   const onConfirm = async (e) => {
     e.preventDefault();
@@ -67,92 +51,57 @@ const MainMypage = ({ profile }) => {
   };
 
   return (
-    <div id="screen">
-      <main>
-        <div>
-          <h4 className="prevBtnFood">&lt; 마이페이지</h4>
-        </div>
-        <div id="profile">
-          <img id="profile_img" src={ProfileImg} alt="Profile" />
+    <>
+      <Header />
+      <MainMypage profile={profile} activity={activity()} onConfirm={onConfirm}/>
+      <MenuBar />
+    </>
+  );
+};
 
-          <span id="nickname">{profile.name}</span>
-          <span id="id">{profile.username}</span>
+const MainMypage = ({ profile, activity, onConfirm }) => {
+  
+
+  const memberInfo = [
+    {text: '키', value: 170, unit: 'cm', className:'height'},
+    {text: '체중', value: 69, unit: 'g', className:'weight'},
+    {text: '활동량', value: 40, unit: '', className:'activity'},
+  ]
+
+  return (
+    <main className="myPageMain main">
+      <section className="myPageSection">
+        <div className="profileBox">
+          <img id="profileImg" src={ProfileImg} alt="Profile" />
+          <p className="nicknameTxt">다니 님</p>
+        </div>
+        
+        <div className="accountInfoBox">
+          <p className="accountTxt">계정 정보</p>
+          <div>
+            <p className="myPageIdTxt">아이디 : dlekdms</p>
+            <p className="emailTxt">이메일 : dlekdms@naver.com</p>
+          </div>
         </div>
 
-        <div id="userInfo-container">
-          <UserInfo
-            infoKey="키"
-            infoValue={` ${profile.height} cm`}
-            colors="one"
-          />
-          <UserInfo
-            infoKey="체중"
-            infoValue={` ${profile.weight} kg`}
-            colors="two"
-          />
-          <UserInfo infoKey="활동량" infoValue={activity()} colors="three" />
-          <UserInfo
-            infoKey="e-mail"
-            infoValue={` ${profile.email}`}
-            colors="four"
-          />
-        </div>
-
-        <section id="intake-container">
-          <h1 id="intake-header">하루 권장 섭취량</h1>
-          <ul id="intake_ul">
-            <div className="intake-line">
-              <UserIntakeInfo
-                intakeKey="칼로리"
-                intakeValue={`${requiredIntake} kcal`}
-              />
-              <UserIntakeInfo
-                intakeKey="탄수화물"
-                intakeValue={`${requiredCarbs} g`}
-              />
-            </div>
-            <div className="intake-line">
-              <UserIntakeInfo
-                intakeKey="단백질"
-                intakeValue={`${requiredProtein} g`}
-              />
-              <UserIntakeInfo
-                intakeKey="지방"
-                intakeValue={`${requiredFat} g`}
-              />
-            </div>
+        <div className="memberInfoBox">
+          <p className="memberTxt">회원 정보</p>
+          <ul>
+            {memberInfo.map((type,i)=>{
+              return(
+                <li key={i}>
+                  <p className={`${type.className} beforeTxt`}>{type.text}</p>
+                  <div><p>{type.value} {type.unit}</p></div>
+                </li>
+              )
+            })}
           </ul>
-        </section>
-        <div id="btn-container">
-          <button id="logoutBtn" onClick={onConfirm}>
-            로그아웃
-          </button>
         </div>
-      </main>
-    </div>
-  );
-};
-
-const UserInfo = ({ infoKey, infoValue, colors }) => {
-  return (
-    <div id="user_info">
-      <div className="userInfo_column">
-        <div id="dot" className={colors}></div>
-        <span id="userInfo_txt">{infoKey}</span>
-      </div>
-      <div className="userInfo_column">
-        <span>{infoValue}</span>
-      </div>
-    </div>
-  );
-};
-
-const UserIntakeInfo = ({ intakeKey, intakeValue }) => {
-  return (
-    <li className="intakeContent">
-      <p className="intakeTxt">{intakeKey}</p>
-      <p className="intakeData">{intakeValue}</p>
-    </li>
+        <div className="logoutBtnBox">
+          <button id="logoutBtn" onClick={onConfirm}>로그아웃</button>
+        </div>
+      </section>
+    </main>
   );
 };
 
