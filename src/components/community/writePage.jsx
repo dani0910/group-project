@@ -19,7 +19,8 @@ const WritePage = () => {
       content: content,
       author: "작성자", //로그인 된 닉네임 뜨도록 변경해야함
       date: new Date().toLocaleDateString("ko-KR"),
-      img: " ",
+      images: " ",
+      board: selectedBoard, //명세서 보니까 보드도 추가해야 하길래..
     };
     console.log(newPost);
 
@@ -28,7 +29,7 @@ const WritePage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Token ${token}`,
         },
         body: JSON.stringify(newPost),
       });
