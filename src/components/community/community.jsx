@@ -29,6 +29,7 @@ const Community = () => {
 const RecipePostBBS = () => {
     const [recipePost, setRecipePost] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
     const location = useLocation();
     const newPost = location.state?.newPost;
 
@@ -52,36 +53,46 @@ const RecipePostBBS = () => {
 
     useEffect(() => {
         const post = [
-            {id: "1", title: '레시피1', content: '내용물1', author: '작성자', date: '7/28', img:''},
-            {id: "2", title: '레시피2', content: '내용물2', author: '작성자', date: '7/25', img:''},
+            { id: "1", title: '레시피1', content: '내용물1', author: '작성자', date: '7/28', img: '' },
+            { id: "2", title: '레시피2', content: '내용물2', author: '작성자', date: '7/25', img: '' },
+            { id: "3", title: '레시피3', content: '내용물2', author: '작성자', date: '7/25', img: '' },
+            { id: "4", title: '레시피4', content: '내용물2', author: '작성자', date: '7/25', img: '' },
+            { id: "5", title: '레시피5', content: '내용물2', author: '작성자', date: '7/25', img: '' },
+            { id: "6", title: '레시피6', content: '내용물2', author: '작성자', date: '7/25', img: '' },
         ]; // 잘뜨는지 시험용으로 만든 리스트
         setRecipePost(post);
         if (newPost) {
-            setRecipePost(prevPosts => [newPost , ...prevPosts]); 
+            setRecipePost(prevPosts => [newPost, ...prevPosts]);
         }
     }, [newPost]);
 
-
     // 검색어를 기준으로 레시피를 필터링
-    const filteredRecipePost = recipePost.filter(post => 
+    const filteredRecipePost = recipePost.filter(post =>
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.content.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    
-    console.log(newPost)
-    console.log(recipePost)
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
     };
 
+    // 현재 페이지에 해당하는 게시물 계산
+    const LastPost = currentPage * 5; //5=> 페이지 당 개수
+    const FirstPost = LastPost - 5;
+    const currentPosts = filteredRecipePost.slice(FirstPost, LastPost);
+
+    
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
     return (
         <>
             <form className="recipeForm commuForm">
-                <input 
-                    type="text" 
-                    className="searchInput" 
-                    placeholder="레시피 검색" 
+                <input
+                    type="text"
+                    className="searchInput"
+                    placeholder="레시피 검색"
                     value={searchQuery}
                     onChange={handleSearchChange}
                 />
@@ -90,13 +101,13 @@ const RecipePostBBS = () => {
                 </button>
             </form>
             <ul className="recipeBox commuBox">
-                {filteredRecipePost.map((post, i) => (
+                {currentPosts.map((post, i) => (
                     <li key={i} className="recipeList commuList">
-                        <Link 
+                        <Link
                             to={`/community/detail/${i}`}
-                            state={{post}}
+                            state={{ post }}
                             className="txtBox"
-                            onChange={()=>console.log(post)}
+                            onChange={() => console.log(post)}
                         >
                             <h4 className="recipeTitle commuTitle">{post.title}</h4>
                             <p className="recipeContent commuContent">{post.content}</p>
@@ -108,6 +119,15 @@ const RecipePostBBS = () => {
                         <img src={post.img || "https://via.placeholder.com/50"} alt="" />
                     </li>
                 ))}
+                <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={5}
+                totalItemsCount={filteredRecipePost.length}
+                pageRangeDisplayed={1}
+                prevPageText={"<"}
+                nextPageText={">"}
+                onChange={handlePageChange}
+                />
             </ul>
             <Link to="/community/write">
                 <button className="writingBtn">
