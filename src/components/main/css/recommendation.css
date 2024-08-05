@@ -25,18 +25,28 @@
     box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
     height: 85%;
     width: 80%;
+    padding: 7% 4%;
   }
-  
+
   .nutritionWarningBox {
     /* background-color: #f8d7da; */ 
     height: 40%;
   }
+
   
-  .nutritionWarningBox h4 {
+  .nutritionWarningBox > h4, .recFoodContainer > h4 {
     font-size: 14px; 
+    height: 15%;
+    /* border: 1px solid #333; */
   }
-  
-  .nutritionWarningBox p {
+  .nutritionWarningBox > div{
+    height: 85%;
+    display: flex;
+    align-items: center;
+    margin-left: 10%;
+  }
+
+  .nutritionWarningBox> p {
     font-size: 14px;
   }
   
@@ -45,14 +55,9 @@
     height: 60%;
   }
   
-  .recFoodContainer h4 {
-    font-size: 14px;
-    height: 10%;
-    background: #fff;
-  }
   .recFoodContainer .slick-slider{
-    height: 80%;
-    background: #ededed;
+    height: 70%;
+/*     background: #ededed; */
     position: relative;
     display: flex;
     justify-content: center;
@@ -67,27 +72,45 @@
     /* border-radius: 50%; */
     position:initial;
   }
- /*  .slick-prev::before{
-    content: '<';
+  .slick-slider > .slick-prev::before, .slick-slider > .slick-next::before{
+    color:#4c4c4c
   }
-  .slick-prev::before, .slick-next::before{
-    font-family: 'slick';
-    font-size: 30px;
-    line-height: 1;
-    color: #0f0f0f;
-  }
-  .slick-next::before{
-    content: '>';
-  } */
+
   .slick-slider .slick-list{
-    background: #585858;
-    width: 70%;
-    height: 90%;
+    width: 68%;
+    height: 100%;
     margin: 0 auto;
     transform: translate3d(0,0,0);
-    /* position: relative; */
   }
-  
+  .slick-slider .slick-list .slick-track{
+    width: 100%;
+    height: 100%;
+  }
+  .slick-slider > .slick-list > .slick-track > div{
+    width: 100%;
+    height: 100%;
+  }
+  .slick-slider > .slick-list > .slick-track > div > div{
+    width: 100%;
+    height: 100%;
+    background: #0000000f;
+    border-radius: 10px;
+  }
+
+  .imgSlider{
+    width: 140px;
+    height: 75%;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  .txtSlider{
+    height: 25%;
+    text-align: center;
+    font-size: 14px; 
+    font-weight: bold;
+    line-height: 40px;
+  }
+
 .recFoodContainer .slick-dots{
     width: 100%;
     position: absolute;
@@ -96,11 +119,11 @@
     bottom: 0%;
 }
 .recFoodContainer .slick-dots li {
-    background: #333; 
+    background: #858585; 
     border-radius: 50%; 
     display: inline-block;
-    width: 10px; 
-    height: 10px;
+    width: 7px; 
+    height: 7px;
     margin: 0 5px;
     cursor: pointer;
   }
@@ -115,4 +138,31 @@
   }
   .slick-dots li button:before{
     display: none;
+  }
+  
+
+  .recFoodContainer > a {
+    font-size: 12px;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  /* before */
+  .h4Txt::before{
+    display:inline-block;
+    content: '';
+    width: 5px;
+    height: 17px;
+    background: #5cc19f86;
+    border-radius: 2px;
+    margin-right: 7px;
+    vertical-align: middle;
+  }
+  .nutritionWarningBox> div > p::before{
+    content:'•';
+    display:inline-block;
+    margin-right: 8px;
   }
