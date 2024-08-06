@@ -13,7 +13,7 @@ const SignUpPage3 = () => {
   const savedSignup2 = location.state.savedSignup2;
 
   const [range, setRange] = useState(0);
-  const baseURL = "http://127.0.0.1:8000/api/register/";
+  const baseURL = "http://rollforward.xyz:3000/api/register/";
 
   const getRange = (e) => setRange(e.target.value);
 

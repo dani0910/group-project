@@ -27,7 +27,7 @@ const MainPage = ({ profile, setProfile }) => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/profile/", {
+      const response = await fetch("http://rollforward.xyz:3000/api/profile/", {
         method: "GET",
         headers: {
           Authorization: `Token ${token}`,
@@ -51,7 +51,7 @@ const MainPage = ({ profile, setProfile }) => {
   const onLoadMeals = async (e) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/food-intake/?date=${currentDate}`,
+        `http://rollforward.xyz:3000/api/food-intake/?date=${currentDate}`,
         {
           method: "GET",
           headers: {
@@ -152,7 +152,7 @@ const MainPageContent = ({
     { text: "지방", value: "fat", unit: "g", recommended: "re_fat" },
   ];
   const recommendedValues = { re_cal, re_carb, re_prot, re_fat };
-  const baseURL = "http://127.0.0.1:8000/api/food-intake/";
+  const baseURL = "http://rollforward.xyz:3000/api/food-intake/";
 
   const ondelete = async (e) => {
     e.preventDefault();

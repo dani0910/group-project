@@ -7,10 +7,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Recommendation = () => {
-  /* 로그인 안했을 때 작동되도록 임시
   const location = useLocation();
-  const dailyMeals = 850;
-  // const dailyMeals = location.state.daily;
+
+  const dailyMeals = location.state.daily;
   const re_cal = location.state.re_cal;
   const re_carb = location.state.re_carb;
   const re_prot = location.state.re_prot;
@@ -25,8 +24,8 @@ const Recommendation = () => {
     recommended_calories: parseFloat(re_cal),
     recommended_protein: parseFloat(re_prot),
     recommended_fat: parseFloat(re_fat),
-  }; */
-
+  };
+  /*
   const required_info = {
     total_calories: 1800,
     total_carbs: 655,
@@ -36,7 +35,7 @@ const Recommendation = () => {
     recommended_calories: 453,
     recommended_protein: 435,
     recommended_fat: 34535,
-  };
+  }; */
   const [response, setResponse] = useState({});
   console.log("navigated : ", required_info);
 
@@ -75,21 +74,19 @@ const Recommendation = () => {
 
   const recommendations = response.recommendations || [];
 
-  {
-    /*
   const onDeficit = () => {
     if (response.deficit === "calories") {
-      return `칼로리 과잉 1865 / 621)`;
+      return `칼로리 과잉 ${required_info.total_calories}/ ${required_info.recommended_calories}`;
     } else if (response.deficit === "carbs") {
-      return `탄수화물 부족 52 / 80)`;
+      return `탄수화물 부족 ${required_info.total_carbs}/ ${required_info.recommended_carbs}`;
     } else if (response.deficit === "protein") {
-      return `단백질 부족 22 / 30)`;
+      return `단백질 부족 ${required_info.total_protein}/ ${required_info.recommended_protein}`;
     } else if (response.deficit === "fat") {
-      return `지방 부족 5 / 8)`;
+      return `지방 부족${required_info.total_fat}/ ${required_info.recommended_fat})`;
     }
   };
-  */
-  }
+  {
+    /*
   const onDeficit = () => {
     if (response.deficit === "calories") {
       return `칼로리 과잉`;
@@ -101,7 +98,8 @@ const Recommendation = () => {
       return `지방 부족`;
     }
   };
-
+*/
+  }
   const settings = {
     arrows: true, //양 끝 화살표
     dots: true, // 슬라이드 점

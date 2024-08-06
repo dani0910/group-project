@@ -28,12 +28,15 @@ const Mypage = ({ profile }) => {
     const confirmedLogout = window.confirm("로그아웃 하시겠습니까?");
     if (confirmedLogout) {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/logout/", {
-          method: "POST",
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://rollforward.xyz:3000/api/logout/",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           alert("로그아웃에 실패했습니다.");
