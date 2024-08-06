@@ -7,18 +7,49 @@ const PostDetail = () => {
   const { postId } = useParams();
   const location = useLocation();
   const post = location.state?.post;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false); 
   const navigate = useNavigate();
-  const onEdit = () => {
+
+  const onEdit = () => { //수정버튼
     navigate("/community/edit", { state: { post } });
   };
 
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
+  const onDelete = async () => { //모달창 속 삭제
+    // try { //api 연동 되면 주석 풀기
+    //     const response = await fetch(`http://127.0.0.1:8000//api/posts/`, {
+    //       method: 'DELETE',
+    //     });
+  
+    //     if (response.ok) {
+    //       console.log('게시글이 삭제되었습니다.');
+    //       // 삭제 후에는 목록으로 이동
+    //       navigate('/community');
+    //     } else {
+    //       console.error('게시글 삭제 실패');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
+    navigate("/community") //api 연동 시 코드 지우기
+  }
+  
+  const handleDeleteModalOpen = () => { // 삭제버튼
+    setDeleteModalOpen(true);
+    console.log('삭제모달 오픈')
+  }
+  const handleDeleteModalClose = () => {
+    setDeleteModalOpen(false); // Close delete modal
   };
-  const handleModalClose = () => {
-    setIsModalOpen(false);
+
+  const handleCommentModalOpen = () => {
+    setCommentModalOpen(true);
   };
+  const handleCommentModalClose = () => {
+    setCommentModalOpen(false);
+  };
+ 
+
   console.log("post", post);
 
   return (
@@ -34,16 +65,13 @@ const PostDetail = () => {
             <div>
               <h2 className="detailTitle">{post.title}</h2>
               <div className="detailPostBtn">
-                {" "}
-                {/* 버튼에 온클릭 추가*/}
                 <button className="detailEditBtn detailBtn" onClick={onEdit}>
                   <span class="material-symbols-outlined ">edit_square</span>
                 </button>
-                <button className="detailDeleteBtn detailBtn">
-                  <span class="material-symbols-outlined">
-                    {" "}
+                <button 
+                    className="detailDeleteBtn detailBtn"
+                    onClick={handleDeleteModalOpen}>
                     <span class="material-symbols-outlined">delete</span>
-                  </span>
                 </button>
               </div>
             </div>
@@ -53,21 +81,37 @@ const PostDetail = () => {
             <div className="detailContent">{post.content}</div>
             {post.img && <img src={post.img} alt="Post" />}
           </div>
-          <div className="commentBox" onClick={handleModalOpen}>
+          <div className="commentBox" onClick={handleCommentModalOpen}>
             <span class="material-symbols-outlined">sms</span>
             <button className="commentTitle">댓글</button>
           </div>
-          {isModalOpen && (
-            <CommentModal postId={postId} onClose={handleModalClose} />
+          {commentModalOpen && (
+            <CommentModal postId={postId} onClose={handleCommentModalClose} />
           )}
+          {deleteModalOpen && (
+            <div className="deleteModal">
+                <p>게시글을 삭제하시겠습니까?</p>
+                <div>
+                    <button onClick={onDelete}><span>삭제</span></button>
+                    <button onClick={handleDeleteModalClose}><span>취소</span></button>
+                </div>
+            </div>
+            )}
         </section>
       </main>
       <MenuBar />
-      {isModalOpen && <div className="bg" onClick={handleModalClose}></div>}
+      {(commentModalOpen || deleteModalOpen) && (
+        <div className="bg" onClick={() => {
+          if (commentModalOpen) handleCommentModalClose();
+          if (deleteModalOpen) handleDeleteModalClose();
+        }}></div>
+      )}
     </>
   );
 };
 
+
+//댓글
 const CommentModal = ({ postId, onClose }) => {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
@@ -124,7 +168,7 @@ const CommentModal = ({ postId, onClose }) => {
       date: new Date().toLocaleDateString("ko-KR"),
       content,
     };
-    // try {
+    // try { //댓글 data 전송 로직 , api 연동 되면 주석 풀기
     //     const response = await fetch(`http://127.0.0.1:8000/api/boards/${postId}/comments`,{
     //         method: "POST",
     //         headers: {
@@ -187,5 +231,7 @@ const CommentModal = ({ postId, onClose }) => {
     </div>
   );
 };
+
+
 
 export default PostDetail;

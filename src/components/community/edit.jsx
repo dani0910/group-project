@@ -53,7 +53,7 @@ const Editpost = () => {
       <main className="writeMain main communityMain">
         <form onSubmit={handleSubmit} className="writeSection commuSection">
           <div className="writeHeader commuHeader">
-            <Link to="/community">&lt;</Link>
+            <Link to="/community/">&lt;</Link>
             <span>게시글 수정</span>
           </div>
 
@@ -66,12 +66,12 @@ const Editpost = () => {
             />
             <div className="optionBox">
               <div className="photoOption">
+                <span class="material-symbols-outlined">add_photo_alternate</span>
                 <p>사진 변경</p>
-                <span></span>
               </div>
-              <div className="photoOption">
-                <p>사진 삭제</p>
-                <span></span>
+              <div className="tagOption">
+                <span class="material-symbols-outlined">tag</span>
+                <p>태그 등록</p>
               </div>
             </div>
             <textarea

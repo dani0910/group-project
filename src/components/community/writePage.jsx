@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./css/writePage.css";
 import { Header, MenuBar } from "../main/main";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const WritePage = () => {
   const [title, setTitle] = useState("");
@@ -10,6 +10,12 @@ const WritePage = () => {
   const [selectedBoard, setSelectedBoard] = useState("recipe");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const location = useLocation();
+
+  useEffect(() => {
+    const initialBoard = location.state?.boardTitle || "recipe";
+    setSelectedBoard(initialBoard);
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,26 +30,25 @@ const WritePage = () => {
     };
     console.log(newPost);
 
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/posts/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
-        },
-        body: JSON.stringify(newPost),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Success:", result);
-        // navigate('/community', { state: { newPost: result } }); // 작성된 글을 상태로 전달
-      } else {
-        throw new Error("Failed to post"); //200번대 응답이 아닐 경우
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    // try { api 연동 되면 주석 지우기
+    //   const response = await fetch("http://127.0.0.1:8000/api/posts/", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Token ${token}`,
+    //     },
+    //     body: JSON.stringify(newPost),
+    //   });
+    //   if (response.ok) {
+    //     const result = await response.json();
+    //     console.log("Success:", result);
+    //     navigate('/community', { state: { newPost: result } }); // 작성된 글을 상태로 전달
+    //   } else {
+    //     throw new Error("Failed to post"); //200번대 응답이 아닐 경우
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
 
     navigate("/community", { state: { newPost } }); // 아직 배포가 안돼서 서버 통신 안되도 넘어가도록 해둠
   };
@@ -58,6 +63,7 @@ const WritePage = () => {
             <select
               name="selectBBS"
               id="selectBBS"
+              value={selectedBoard}
               onChange={(e) => setSelectedBoard(e.target.value)}
             >
               <option value="recipeBBS">게시판 - 레시피</option>
@@ -74,12 +80,12 @@ const WritePage = () => {
             />
             <div className="optionBox">
               <div className="photoOption">
+                <span class="material-symbols-outlined">add_photo_alternate</span>
                 <p>사진 추가</p>
-                <span></span>
               </div>
               <div className="tagOption">
+                <span class="material-symbols-outlined">tag</span>
                 <p>태그 등록</p>
-                <span></span>
               </div>
             </div>
             <textarea

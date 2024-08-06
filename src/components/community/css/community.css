@@ -47,7 +47,7 @@
     /* background:#060606; */
     width: 75%;
     height: 6%;
-    margin: 0 auto;
+    margin: 2% auto 5%;
     border: 1px solid #e7e7e7;
     display: flex;
     align-items: center;
@@ -81,6 +81,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    position: relative;
 }
 .commuBox > .commuList{
     border-bottom: 1px solid #ddd;
@@ -126,10 +127,22 @@
     border-radius: 7px;
 }
 
+.pagination{
+    /* border: 1px solid #333; */
+    width: 80px;
+    height: 30px;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    gap: 10px;
+}
+
 .writingBtn{
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 25px;
+    right: 20px;
     width: 38px;
     height: 38px;
     border-radius: 50%;
