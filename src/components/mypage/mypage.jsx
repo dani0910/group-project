@@ -28,15 +28,12 @@ const Mypage = ({ profile }) => {
     const confirmedLogout = window.confirm("로그아웃 하시겠습니까?");
     if (confirmedLogout) {
       try {
-        const response = await fetch(
-          "http://rollforward.xyz:3000/api/logout/",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
+        const response = await fetch("http://13.125.65.66:8000/api/logout/", {
+          method: "POST",
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
 
         if (!response.ok) {
           alert("로그아웃에 실패했습니다.");
@@ -78,7 +75,7 @@ const MainMypage = ({ profile = {}, onConfirm }) => {
     {
       text: "체중",
       value: weight,
-      unit: "g",
+      unit: "kg",
       className: "weight",
     },
     {

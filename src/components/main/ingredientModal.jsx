@@ -11,7 +11,7 @@ const IngredientModal = ({ onClose, foodinfo, time }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const baseURL = "http://rollforward.xyz:3000/api/food-intake/";
+  const baseURL = "http://13.125.65.66:8000/api/food-intake/";
 
   const foodName = foodinfo.name;
   const cal = parseFloat(foodinfo.calories);

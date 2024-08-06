@@ -15,6 +15,7 @@ const WritePage = () => {
   useEffect(() => {
     const initialBoard = location.state?.boardTitle || "recipe";
     setSelectedBoard(initialBoard);
+    console.log(selectedBoard);
   }, [location.state]);
 
   const handleSubmit = async (e) => {
@@ -24,7 +25,6 @@ const WritePage = () => {
       title: title,
       content: content,
       author: "작성자", //로그인 된 닉네임 뜨도록 변경해야함
-      date: new Date().toLocaleDateString("ko-KR"),
       images: " ",
       board: selectedBoard, //명세서 보니까 보드도 추가해야 하길래..
     };
@@ -35,7 +35,7 @@ const WritePage = () => {
     //     method: "POST",
     //     headers: {
     //       "Content-Type": "application/json",
-    //       Authorization: `Token ${token}`,
+    //
     //     },
     //     body: JSON.stringify(newPost),
     //   });
@@ -80,7 +80,9 @@ const WritePage = () => {
             />
             <div className="optionBox">
               <div className="photoOption">
-                <span class="material-symbols-outlined">add_photo_alternate</span>
+                <span class="material-symbols-outlined">
+                  add_photo_alternate
+                </span>
                 <p>사진 추가</p>
               </div>
               <div className="tagOption">

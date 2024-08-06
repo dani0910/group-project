@@ -8,7 +8,7 @@ const IntroPage = () => {
   const [ID, setID] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const baseURL = `http://rollforward.xyz:3000/api/login/`;
+  const baseURL = "http://13.125.65.66:8000/api/login/";
   const getId = (e) => {
     setID(e.target.value);
   };
