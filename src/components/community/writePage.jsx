@@ -74,12 +74,12 @@ const WritePage = () => {
             />
             <div className="optionBox">
               <div className="photoOption">
+                <span class="material-symbols-outlined">add_photo_alternate</span>
                 <p>사진 추가</p>
-                <span></span>
               </div>
               <div className="tagOption">
+                <span class="material-symbols-outlined">tag</span>
                 <p>태그 등록</p>
-                <span></span>
               </div>
             </div>
             <textarea
