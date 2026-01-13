@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+## 🍽️ Dream Fitness — 식단 기반 건강 관리 서비스
+2024 멋쟁이사자처럼 중앙해커톤에서 제작한 React 기반 식단 분석 · 건강 관리 웹 서비스
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img width="926" height="521" alt="image" src="https://github.com/user-attachments/assets/de861cc4-b652-4560-9b59-cf9f355ef872" />
+<img width="927" height="513" alt="image" src="https://github.com/user-attachments/assets/217103a0-4581-44e8-86d1-9385ed783882" />
+<img width="927" height="517" alt="image" src="https://github.com/user-attachments/assets/718819af-f3b3-4635-ab84-5c3997ac2d71" />
 
-## Available Scripts
 
-In the project directory, you can run:
+<br/>
 
-### `npm start`
+### 📌 Overview
+Dream Fitness는 사용자가 섭취한 음식의 영양 정보를 쉽게 파악할 수 있도록 하는
+식단 기록 · 칼로리 분석 · 영양소 진단 서비스입니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+간단한 음식 검색만으로 칼로리·탄단지·세부 영양소를 확인할 수 있으며,
+하루 권장 섭취량 대비 부족한 영양소를 알려주어
+건강한 식단 관리에 도움이 되는 것을 목표로 제작되었습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br/>
 
-### `npm test`
+### 🔧 주요 기능 (구현된 범위 기준)
+🔍 1. 음식 검색 & 영양소 조회 (Nutrition API 연동)
+- 음식명 검색 시 칼로리/탄단지/비타민/미네랄 등 영양 성분 조회
+- 외부 칼로리/영양 정보 API 사용
+- 검색 결과에 따라 섭취 영양소 비교 제공
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🧮 2. 하루 권장량 대비 분석
+- 사용자 기본 정보를 기반으로 하루 권장 섭취량 반영
+- 현재 섭취량과의 차이를 계산해 부족/충분/초과 여부 표시
+<br>
 
-### `npm run build`
+🍳 3. 추천 레시피 제공
+- 음식 검색 결과를 기반으로 관련 레시피 추천
+- 칼로리/영양 정보와 함께 제공
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+📝 4. 간단 커뮤니티 기능
+- 게시글 목록 · 글 작성 UI 제공
+- 건강/식단 관련 커뮤니티 공간 구성
+(※ 실제 백엔드 서버 저장 기능은 미구현)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 💻 기술 스택
+- Frontend
 
-### `npm run eject`
+React, JavaScript , Axios, CSS / Styled-components
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Backend (초기 설계)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Django, Python
+(일부 API 미완)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Open API
+칼로리/영양소 조회 API, 레시피 추천 API
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br/>
 
-## Learn More
+### 📈 개발 중 어려움 & 한계
+해커톤이라는 짧은 기간 동안 많은 기능을 시도해
+일부 기능은 MVP 수준에서 마무리되었으며, 주요 특징은 다음과 같습니다:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- AI 이미지 분석, 캐릭터 시스템 등은 구현되지 못함
+- 일부 백엔드 API 미완성
+- React 구조 설계와 컴포넌트 분리 기준이 부족
+- 배포 실패
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+빠른 개발과 처음 팀프로젝트로 인해 폴더 구조가 정돈되지 못함
 
-### Code Splitting
+결과적으로 전체 기획 대비 실제 구현 범위는 제한적이었으나,
+팀 협업과 기능 설계 경험을 쌓는 데 중요한 참고가 되었습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<br/>
 
-### Analyzing the Bundle Size
+### 🔄 현재 진행 중인 개선 방향
+해당 프로젝트는 해커톤 후 아카이브 저장 상태이며,
+이후 타겟을 반려견 자연식 영양 케어 서비스로 변경하여
+완전히 새롭게 리빌드 중입니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 프로젝트 구조 전면 개선
 
-### Making a Progressive Web App
+- TypeScript 도입
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- 상태 관리 도입 (Recoil/Zustand)
 
-### Advanced Configuration
+- API 재설계
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 영양 기준을 반려견 자연식 기준(AAFCO 등)으로 변경
